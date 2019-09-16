@@ -1,0 +1,30 @@
+{
+  "name": "readit_cosc484",
+  "version": "1.0.0",
+  "description": "Reddit-like social media website for COSC484 project.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tulachan/cosc484projet.git"
+  },
+  "keywords": [
+    "socialmedia",
+    "reddit"
+  ],
+  "author": "Sujan Tulachan, Badal Chalise, Jacob Della, Kenred Jones, Prahbat Bai, Trevor Amburgey, Tan Duong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tulachan/cosc484projet/issues"
+  },
+  "homepage": "https://github.com/tulachan/cosc484projet#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "mysql2": "^1.7.0",
+    "request": "^2.88.0",
+    "sequelize": "^5.18.4"
+  }
+}
