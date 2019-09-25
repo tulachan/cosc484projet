@@ -1,47 +1,114 @@
 // Import database session authentication information
 // and initializaiton functions.
-const database = require('./js/dbcfg.js');
 //Main Driver JS file
-const mysql = require('mysql2');
-let sequelize = require('sequelize');
-let http = require('http');
+var http = require('http');
+var fs = require('fs');
+var database = require('./js/dbcfg.js');
+var mysql = require('mysql');
+var express = require('express');
+var session = require('express-session');
+var react = require('react');
+var bodyParser = require('body-parser');
+var path = require('path');
+var app = express();
+
+app.set('view engine','ejs');
+
+
+
 //Utilize a special fork of the normal MySQL NPM library
 //Didn't feel like reconfiguring the whole SQL server to make this
 //work
+
+//Express crap
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+//Express uses the bodyparser to create JSON
+//Bodyparsing arguements for the login page.
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+
+
+
+
 console.log(" ");
-database.InitializeMySQLSession();
-console.log('Server spool up succesful, running at http://127.0.0.1:3000/ \n');
-
-
-
+console.log('Server spooling up. \n');
 //Tests ability to create MySQL session.
-
-
-http.createServer(function (req, res) {
-var html = buildHtml(req);
-res.writeHead(200, {
-    'Content-Type': 'text/html',
-    'Content-Length': html.length, 
-    'Expires': new Date().toUTCString()
-    });
-res.end(html);
-}).listen(3000, "127.0.0.1");
+//Please do not delete this function
+database.InitializeMySQLSession();
 
 
 
 
-function buildHtml(req) {
-var header = 'Hello World';
-var body = 'Something';
-var title = 'Something';
-
-// concatenate header string
-// concatenate body string
-
-return '<!DOCTYPE html>'
-    + '<title>' + title + '</title>' + '<html><head>' 
-    + header + '</head><body><h1>' + body + '</h1></body></html>';
-
-};
 
 
+//Loads initial login page
+app.get('/', function(request, response) {
+	response.render('login.ejs');
+});
+
+
+//Will not return the user's homepage if they're not logged in.
+app.get('/home', function(request, response) {
+    if (request.session.loggedin) {
+		//If the user succesfully logs in then they are allowed to view this page.
+		response.render('home.ejs',{usernameplaceholder : request.session.username});
+		//We use EJS to replace our place holder tags inside the HTML
+		//They take the form of <%= usernameplaceholder %> 
+	} else {
+		response.send('You need to be logged into to do that!');
+	}
+});
+
+
+	
+			//Use this when creating new users.
+			//INSERT INTO `accounts` (`id`, `username`, `password`, `email`) VALUES (1, 'test', 'test', 'test@test.com');
+
+
+// Auth function
+app.post('/auth', function(request, response) {
+	var username = request.body.username;
+	var password = request.body.password;
+	//Login stuff
+	if (username && password) {
+		//How you send MySQL queries to the database.
+		database.cfg.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(err, results, fields){
+			
+
+				
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.redirect('/home');
+				//Redirects us to the home path
+			} else {
+				response.send('Incorrect Username and/or Password!');
+				//Bad password.
+
+			}			
+			response.end();
+		});
+	} else {
+		//No password
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
+app.listen(3000, "127.0.0.1");
