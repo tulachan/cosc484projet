@@ -6,7 +6,7 @@
 //For obvious reason you're gonna have to fill this out
 var mysql = require('mysql');
 var cfg = mysql.createConnection({
-    host : "192.168.1.219",
+    host : "98.117.196.205",
     user : "cosc484",
     password : "delta",
     database : "graveyard"
