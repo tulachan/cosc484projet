@@ -7,9 +7,9 @@
 var mysql = require('mysql');
 var cfg = mysql.createConnection({
     host : "98.117.196.205",
-    user : "cosc484",
+    user : "coscnonrootuser",
     password : "delta",
-    database : "graveyard"
+    database : "cosc484"
 });
 
 //Intialize MySQL session. If you end the connection
@@ -23,7 +23,7 @@ function InitializeMySQLSession(){
             process.exit();
         return;
         }
-        console.log("Connection to GRAVEYARD database server successfully created!");
+        console.log("Connection to COSC484 project database server successfully created!");
         console.log('Server spool up succesful, running at http://127.0.0.1:3000/ \n');
     });
 };
