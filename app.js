@@ -52,6 +52,10 @@ app.get('/', function(request, response) {
 	response.render('login.ejs');
 });
 
+//Loads sign-up page
+app.get('/sign-up', function(request, response) {
+	response.render('sign-up.ejs');
+});
 
 //Will not return the user's homepage if they're not logged in.
 app.get('/home', function(request, response) {
@@ -93,6 +97,33 @@ app.post('/auth', function(request, response) {
 
 			}			
 			response.end();
+		});
+	} else {
+		//No password
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});
+
+
+// addUser function to add the given details in database
+app.post('/addUser', function(request, response) {
+	var username = request.body.username;
+	var password = request.body.password;
+	var emailId = request.body.email;
+	
+	if (username && password) {
+		// Insert the provided values into respective fields.
+		database.cfg.query('INSERT INTO accounts (username, password, email) VALUES (? , ?, ?)',[username, password, emailId], function(err, results, fields) {
+
+			if (!err){
+				// if successful, render successfulSignUp page
+				response.render('successfulSignUp.ejs');
+				response.end();
+			} else {
+				response.send('Please enter valid user name and password');
+				response.end();
+			}
 		});
 	} else {
 		//No password
