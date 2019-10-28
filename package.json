@@ -2,7 +2,7 @@
   "name": "readit_cosc484",
   "version": "1.0.0",
   "description": "Reddit-like social media website for COSC484 project.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +27,7 @@
     "express-session": "^1.16.2",
     "mysql": "^2.17.1",
     "mysql2": "^1.7.0",
+    "nodemon": "^1.19.4",
     "popups": "^1.1.3",
     "react": "^16.9.0",
     "request": "^2.88.0",
