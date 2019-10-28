@@ -14,6 +14,8 @@ var app = express();
 
 app.set('view engine','ejs');
 
+var port = 3000;
+var URL = "127.0.0.1";
 
 
 //Utilize a special fork of the normal MySQL NPM library
@@ -55,6 +57,34 @@ app.get('/', function(request, response) {
 //Loads sign-up page
 app.get('/sign-up', function(request, response) {
 	response.render('sign-up.ejs');
+});
+
+// Create sub-readit at /new?sub=name
+app.get('/new', function(request, response) {
+	let q = request.query;
+    if ("sub" in q)
+    {
+		let dir = q.sub;
+		console.log("Someone attempting to make sub-readit: " + dir);
+		dir = "./sub/" + dir;
+		if (!fs.existsSync(dir))
+		{
+			fs.mkdirSync(dir);
+			response.send("Created!");
+		}
+		else
+		{
+			response.send("That sub-readit already exists. . .");
+		}
+		// send the client to the sub-readit here
+		/////
+        console.log("Done\n");
+    }
+    else
+    {
+        response.status(401).send("Invalid argument, format is /new?sub=NAME");
+        console.log("Invalid format presented. . . not sent\n");
+    }
 });
 
 //Will not return the user's homepage if they're not logged in.
@@ -142,4 +172,4 @@ app.post('/addUser', function(request, response) {
 
 
 
-app.listen(3000, "127.0.0.1");
+app.listen(port, URL);
