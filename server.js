@@ -16,6 +16,7 @@ app.set('view engine','ejs');
 
 // make sure edit proxy in react's package.json file if you change this!
 // otherwise you will disconnect the frontend from the backend!
+// also do not set to port 3000 or else react will not start!
 var port = 8080;
 var URL = "127.0.0.1";
 
@@ -49,16 +50,20 @@ database.InitializeMySQLSession();
 
 
 
-
+// Fetch your endpoints in react and handle the frontend there
+// These endpoints here should only do things like returning json to the frontend
+// or handle requests to the database, create files/directories, etc.
 
 //Loads initial login page, REACT IGNORES THIS
- app.get('/', (request, response) => {
- 	response.send( {express: 'login.ejs'});
+ app.get('/', function(request, response) {
+ 	response.render('login.ejs');
  });
+
+ // response.render('home.ejs',{usernameplaceholder : request.session.username});
 
 // create a GET route
 app.get('/start', (req, res) => {
-	res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+	res.send( {express: "This is sent from the backend"});
   });
 
 //Loads sign-up page

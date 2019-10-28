@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+// style things in this file
 import './App.css';
+import Nav from './nav';
 
 class App extends Component {
 state = {
@@ -25,11 +27,9 @@ state = {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to Readit</h1>
-        </header>
-        <p className="App-intro">{this.state.data}</p>
+      <div>
+        <Nav />
+        <p>{this.state.data}</p>
       </div>
     );
   }
