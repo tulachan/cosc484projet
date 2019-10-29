@@ -1,13 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-function Login()
+class Login extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = { 
+            username: "",
+            password: ""
+        };
+    }
+    handleChangeUser = (event) => {
+        this.setState({username: event.target.value});
+    }
+    handleChangePass = (event) => {
+        this.setState({password: event.target.value});
+    }
 
-    return(
-        <div>
-            <h1> login page</h1>
-        </div>
-    )
+    render() {
+        return(
+            <div>
+                <h1> Login Page</h1>
+                <form>
+                    <h2> Hello {this.state.username}!</h2>
+                    <label> Username </label>
+                    <input name type='text' onChange={this.handleChangeUser} />
+                    <br></br>
+                    <label> Password </label>
+                    <input type='password' onChange={this.handleChangePass} />
+                    <br></br>
+                    <Link to="/home">
+                        <button> Login </button>
+                    </Link>
+                    <br></br>
+                    <p> Don't have a username? Sign up here: </p>
+                    <Link to="/signup">
+                        <button> Signup </button>
+                    </Link>
+                </form>
+            </div>
+        )
+    }
 }
 
 export default Login;

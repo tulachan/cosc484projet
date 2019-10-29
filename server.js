@@ -55,9 +55,9 @@ database.InitializeMySQLSession();
 // or handle requests to the database, create files/directories, etc.
 
 //Loads initial login page, REACT IGNORES THIS
- app.get('/', function(request, response) {
- 	response.render('login.ejs');
- });
+//  app.get('/', function(request, response) {
+//  	response.render('login.ejs');
+//  });
 
  // response.render('home.ejs',{usernameplaceholder : request.session.username});
 
@@ -67,9 +67,9 @@ app.get('/start', (req, res) => {
   });
 
 //Loads sign-up page
-app.get('/sign-up', function(request, response) {
-	response.render('sign-up.ejs');
-});
+// app.get('/sign-up', function(request, response) {
+// 	response.render('sign-up.ejs');
+// });
 
 // Create sub-readit at /new?sub=name
 app.get('/new', function(request, response) {
