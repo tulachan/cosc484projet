@@ -160,10 +160,11 @@ app.post('/addUser', function(request, response) {
 	var username = request.body.username;
 	var password = request.body.password;
 	var emailId = request.body.email;
+	var id = request.body.id;
 	
 	if (username && password) {
 		// Insert the provided values into respective fields.
-		database.cfg.query('INSERT INTO accounts (username, password, email) VALUES (? , ?, ?)',[username, password, emailId], function(err, results, fields) {
+		database.cfg.query('INSERT INTO accounts (username, password, email, id) VALUES (? , ?, ?, ?)',[username, password, emailId, id], function(err, results, fields) {
 
 			if (!err){
 				// if successful, render successfulSignUp page

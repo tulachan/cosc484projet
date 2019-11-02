@@ -33,11 +33,6 @@ class Login extends React.Component
                     <Link to="/home">
                         <button> Login </button>
                     </Link>
-                    <br></br>
-                    <p> Don't have a username? Sign up here: </p>
-                    <Link to="/signup">
-                        <button> Signup </button>
-                    </Link>
                 </form>
             </div>
         )

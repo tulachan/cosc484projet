@@ -18,6 +18,9 @@ function Start()
           <Link to="/create">
              <button onClick={al}> Create Sub-Readit </button>
           </Link>
+          <Link to="/signup">
+            <button> Signup </button>
+          </Link>
         </div>
     );
 }
