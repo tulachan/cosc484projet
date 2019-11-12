@@ -30,7 +30,7 @@ class Login extends React.Component
                     <label> Password </label>
                     <input type='password' onChange={this.handleChangePass} />
                     <br></br>
-                    <Link to="/home">
+                    <Link to="/UsersPage">
                         <button> Login </button>
                     </Link>
                 </form>
