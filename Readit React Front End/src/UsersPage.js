@@ -6,43 +6,38 @@ import { Link } from 'react-router-dom';
 
 class UsersPage extends React.Component
 {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            status: "",
-            username:""
+constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.fileInput = React.createRef();
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    alert(
+      `Selected file - ${
+        this.fileInput.current.files[0].name
+      }`
+    );
+  }
 
-        };
-    }
-    handleChangeUser = (event) => {
-        this.setState({status: event.target.value});
-      }
-      handleChangeUser = (event) => {
-          this.setState({username: event.target.value});
-    }
-    //handleChangePass = (event) => {
-      //  this.setState({password: event.target.value});
-    //}
+  render() {
+    return (
 
-    render() {
-        return(
-            <div>
-                <h1> Users Page</h1>
-                <form>
-                    <h2> Hello {this.props.username}!</h2>
-                    <label> UpdateStatus </label>
-                    <input name type='text' onChange={this.handleChangeUser} />
-                    <br></br>
-                    <br></br>
-                    <Link to="/home">
-                        <button> Post </button>
-                    </Link>
-                </form>
-            </div>
-        )
-    }
+      <form onSubmit={this.handleSubmit}>
+        <h2> Hello {this.props.username}!</h2>
+         <label>
+          Upload file:</label>
+          <input type="file" ref={this.fileInput} />
+        <label> UpdateStatus </label>
+        <input name type='text' onChange={this.handleChangeUser} />
+        <br></br>
+        <Link to="/home">
+        <button type="submit">Submit</button>
+        </Link>
+        </form>
+    );
+  }
 }
+ 
 
 export default UsersPage;
-
