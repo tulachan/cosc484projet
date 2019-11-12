@@ -19,7 +19,7 @@ class UsersPage extends React.Component
         this.setState({status: event.target.value});
       }
       handleChangeUser = (event) => {
-          this.setState({username: event.Login.value});
+          this.setState({username: event.target.value});
     }
     //handleChangePass = (event) => {
       //  this.setState({password: event.target.value});
