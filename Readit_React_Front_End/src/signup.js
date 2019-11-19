@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './signup.css';
 import { Link } from 'react-router-dom';
 
 class Signup extends React.Component
@@ -29,23 +30,23 @@ class Signup extends React.Component
 
     render() {
         return(
-            <div>
-                <h2> Sign-up Page</h2>
-                <form onSubmit={this.onSubmit}>
-                    <label> Enter ID:  </label>
+            <div className="signup-textbox">
+                <h2 className="signup-title"> Sign-up Page</h2>
+                <form className="signup-form" onSubmit={this.onSubmit}>
+                    <label className="signup"> Enter ID:  </label>
                     <input type='text' onChange={this.handleChangeId} />
                     <br/><br/>
-                    <label> Please enter a desired username:  </label>
+                    <label className="signup"> Please enter a desired username:  </label>
                     <input type='text' onChange={this.handleChangeUser} />
                     <br/><br/>
-                    <label> Set Password:  </label>
+                    <label className="signup"> Set Password:  </label>
                     <input type='password' onChange={this.handleChangePass} />
                     <br/><br/>
-                    <label> Enter Email address:  </label>
+                    <label className="signup"> Enter Email address:  </label>
                     <input type='text' onChange={this.handleChangeEmail} />
                     <br/><br/>
                     <Link to="/successfulSignup">
-                        <button> Register </button>
+                        <button className="register"> Register </button>
                     </Link>
                 </form>
             </div>

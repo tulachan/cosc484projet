@@ -1,0 +1,43 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.succ-form{
+  height: 95vh;
+  background-image: linear-gradient(to left, rgba(111, 213, 128, 0.801), rgba(40, 89, 180, 0.801)), url(./images/background1.jpg);
+  background-size: cover;
+  background-position: top;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  position: relative; 
+}
+
+.succ-title{
+  padding-top: 200px;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+
+.return{
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 40px;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: white;
+  border:0;
+  transition: all .2s;
+}
+
+.return:hover{
+  color: rgba(40, 89, 180, 0.801);
+  transform: translateY(-3px);
+}
+
+.return:active{
+  transform: translateY(-1px);
+}

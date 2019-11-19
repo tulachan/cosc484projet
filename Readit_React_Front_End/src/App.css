@@ -20,3 +20,20 @@
 .App-link {
   color: #09d3ac;
 }
+
+.login-butt{
+  margin-right: 10px;
+  background-color: #282c34; 
+  color: white;
+}
+
+.signup-butt{
+  margin-left: 10px;
+  background-color: #282c34; 
+  color: white;
+}
+
+.create-butt{
+  background-color: #282c34; 
+  color: white;
+}

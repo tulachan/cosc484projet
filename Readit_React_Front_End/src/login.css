@@ -1,0 +1,62 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.login-textbox {
+  height: 95vh;
+  background-image: linear-gradient(to right top, rgba(213, 203, 111, 0.801), rgba(40, 89, 180, 0.801)), url(./images/background1.jpg);
+  background-size: cover;
+  background-position: top;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  position: relative; }
+
+.login-title{
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 200;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.hello{
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 200;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.login-form{
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+}
+
+.username{
+ padding-bottom: 20px;
+}
+
+button{
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 40px;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: white;
+  border:0;
+  transition: all .2s;
+}
+
+button:hover{
+  color: rgba(40, 89, 180, 0.801);
+  transform: translateY(-3px);
+}
+
+button:active{
+  transform: translateY(-3px);
+}

@@ -13,13 +13,13 @@ function Start()
             <h1 className="App-title">Welcome to Readit</h1>
           </header>
           <Link to="/login">
-              <button> Login </button>
+              <button className="login-butt"> Login </button>
           </Link>
           <Link to="/create">
-             <button onClick={al}> Create Sub-Readit </button>
+             <button className="create-butt" onClick={al}> Create Sub-Readit </button>
           </Link>
           <Link to="/signup">
-            <button> Signup </button>
+            <button className="signup-butt"> Signup </button>
           </Link>
         </div>
     );

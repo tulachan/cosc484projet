@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './login.css';
 import { Link } from 'react-router-dom';
 
 class Login extends React.Component
@@ -20,14 +21,14 @@ class Login extends React.Component
 
     render() {
         return(
-            <div>
-                <h1> Login Page</h1>
-                <form>
-                    <h2> Hello {this.state.username}!</h2>
-                    <label> Username </label>
+            <div className="login-textbox">
+                <h1 className="login-title"> Login Page</h1>
+                <form className="login-form">
+                    <h2 className="hello"> Hello {this.state.username}!</h2>
+                    <label className="username"> Username </label>
                     <input name type='text' onChange={this.handleChangeUser} />
                     <br></br>
-                    <label> Password </label>
+                    <label className="pass"> Password </label>
                     <input type='password' onChange={this.handleChangePass} />
                     <br></br>
                     <Link to="/UsersPage">

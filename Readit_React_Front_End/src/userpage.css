@@ -1,0 +1,63 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.user-textbox {
+  height: 95vh;
+  background-image: linear-gradient(to right top, rgba(210, 111, 213, 0.801), rgba(180, 40, 59, 0.801)), url(./images/background1.jpg);
+  background-size: cover;
+  background-position: top;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  position: relative; }
+
+.user-title{
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 200;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.user-hello{
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 200;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.user-form{
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+}
+
+.user-status{
+  letter-spacing: 2px;
+}
+
+.post{
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 40px;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: white;
+  border:0;
+  transition: all .2s;
+  
+}
+
+.post:hover{
+  color: rgba(180, 40, 59, 0.801);
+  transform: translateY(-3px);
+}
+
+.post:active{
+  transform: translateY(-3px);
+}

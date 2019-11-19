@@ -2,7 +2,7 @@
   "name": "readit_cosc484",
   "version": "1.0.0",
   "description": "Reddit-like social media website for COSC484 project.",
-  "main": "server.js",
+  "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
