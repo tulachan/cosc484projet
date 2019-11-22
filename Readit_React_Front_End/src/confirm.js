@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// This page has a bug that causes it to say login failed, but refreshing the page or clicking retry login confirms you are actually logged in 
+
 class Confirm extends React.Component
 {
     constructor(props)

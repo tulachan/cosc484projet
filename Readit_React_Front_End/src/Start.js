@@ -32,13 +32,27 @@ class Start extends React.Component
   {
     if (this.state.loggedin)
     {
-      alert("This should log you out when the api endpoint is written");
+      this.callLogout();
+      alert("Thank you for using Readit!");
+      window.location.reload(true);
     }
     else
     {
       alert("You are already logged out!");
     }
   }
+
+  callLogout()
+    {
+        fetch('/api/logout' , {
+            method: "GET",
+            headers: {
+                'Content-type': 'application/json'
+            }
+            })
+            .then((result) => result.json())
+            .then((info) => { console.log(info); });
+    }
 
     render() {
         return(

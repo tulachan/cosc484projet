@@ -5,6 +5,8 @@ import Start from "./Start";
 import FrontPage from "./frontpage";
 import Search from "./search";
 import Confirm from "./confirm";
+import CreatePost from "./createpost";
+import CreateSub from "./createsub";
 import Login from "./login";
 import UsersPage from "./UsersPage";
 import Signup from "./signup";
@@ -26,6 +28,15 @@ function Nav()
           <Link to="/search">
             <button className="login-butt"> Find Subreadit </button>
           </Link>
+          <Link to="/createPost">
+            <button className="login-butt"> Create Post </button>
+          </Link>
+          <Link to="/createSub">
+            <button className="login-butt"> Create SubReadit </button>
+          </Link>
+          <Link to="/usersPage">
+            <button className="login-butt"> Users Page </button>
+          </Link>
       </div>
         <div>
           <Switch>
@@ -36,7 +47,10 @@ function Nav()
             <Route path="/search"> <Search /> </Route>
             <Route path="/UsersPage"> <UsersPage /> </Route>
             <Route path="/signup"> <Signup /> </Route>
+            <Route path="/createPost"> <CreatePost /> </Route>
+            <Route path="/createSub"> <CreateSub /> </Route>
             <Route path="/successfulSignup"> <SuccessfulSignup /> </Route>
+            <Route path="/usersPage"> <UsersPage /> </Route>
           </Switch>
         </div>
       </Router>

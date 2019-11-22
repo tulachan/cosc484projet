@@ -83,7 +83,7 @@ class Login extends React.Component
             body: JSON.stringify(this.state)
             })
             .then((result) => result.json())
-            .then((info) => { console.log(info); })
+            .then((info) => { console.log(info); });
     }
 
     render() {
