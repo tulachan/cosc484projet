@@ -49,12 +49,13 @@ app.post('/api/newpost', function(req, res) {
 	postbody = req.session.postbody;
 	posttitle = req.session.posttitle;
 	postsubreadit = req.session.postsubreadit;
+	currentime = new Date();
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
 		database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [postsubreadit], function(err, results, fields){
 			if(results[0] == null){
-			database.cfg.query('INSERT INTO posts (post_body, post_title, post_subreadit, post_author, post_creationdate) VALUES (? ,?,?,?, curdate())'
-				,[postbody, posttitle, postsubreadit, postauthor], function(err, results, fields) {
+			database.cfg.query('INSERT INTO posts (post_body, post_title, post_subreadit, post_author, post_creationdate) VALUES (? ,?,?,?, ?)'
+				,[postbody, posttitle, postsubreadit, postauthor, currentime], function(err, results, fields) {
 					if (!err){
 						res.send({ message: 'Post successfuly created!'});
 					} else {
@@ -98,10 +99,11 @@ app.post('/api/newsubreadit', function(req, res) {
 	subreaditname = req.session.subreaditname;
 	posttitle = req.session.posttitle;
 	postsubreadit = req.session.postsubreadit;
+	currentime = new Date();
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
-			database.cfg.query('INSERT INTO subreadits (subreadit_name, subreadit_moderatorname, subreadit_creationdate) VALUES (? ,?, curdate())'
-				,[subreaditname, subreaditmod], function(err, results, fields) {
+			database.cfg.query('INSERT INTO subreadits (subreadit_name, subreadit_moderatorname, subreadit_creationdate) VALUES (? ,?, ?)'
+				,[subreaditname, subreaditmod, currentime ], function(err, results, fields) {
 					if (!err){
 						res.send({ message: 'Post successfuly created!'});
 					} else {
