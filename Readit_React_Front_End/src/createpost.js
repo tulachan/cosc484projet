@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './signup.css';
 import { Link } from 'react-router-dom';
 
-// This doesn't work yet, It should be working for username ta, but it isn't...
-// This does is not inserting into the database for some reason
+// This page and create subreadit are both not working: When the state data is sent to the backend the backend is reading postbody, postitle, and postsubreadit as undefined
+// for some reason they are not being updated when the user enters them in the inputs (very strange because I copied and pasted this from register, which works perfectly!)
 // grab username from whoami endpoint
 // send completed data to /api/newpost
 
