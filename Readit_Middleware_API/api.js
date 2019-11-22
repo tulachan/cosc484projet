@@ -49,20 +49,23 @@ app.post('/api/newpost', function(req, res) {
 	postbody = req.session.postbody;
 	posttitle = req.session.posttitle;
 	postsubreadit = req.session.postsubreadit;
-	currentime = new Date();
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
 		database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [postsubreadit], function(err, results, fields){
 			if(results[0] == null){
-			database.cfg.query('INSERT INTO posts (post_body, post_title, post_subreadit, post_author, post_creationdate) VALUES (? ,?,?,?, ?)'
-				,[postbody, posttitle, postsubreadit, postauthor, currentime], function(err, results, fields) {
+			database.cfg.query('INSERT INTO posts (post_body, post_title, post_subreadit, post_author) VALUES (? ,?,?,?)'
+				,[postbody, posttitle, postsubreadit, postauthor], function(err, results, fields) {
 					if (!err){
 						res.send({ message: 'Post successfuly created!'});
 					} else {
 						res.send({ message: 'Failed to post'});
 					}
 				});
-			}
+			}	
+			
+			else {
+					res.send({ message: 'Failed to post'});
+				}
 		});
 	}
 	});
@@ -97,13 +100,10 @@ app.get('/api/displaysubreadit', function(req, res) {
 app.post('/api/newsubreadit', function(req, res) {
 	subreaditmod = req.session.username;
 	subreaditname = req.session.subreaditname;
-	posttitle = req.session.posttitle;
-	postsubreadit = req.session.postsubreadit;
-	currentime = new Date();
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
-			database.cfg.query('INSERT INTO subreadits (subreadit_name, subreadit_moderatorname, subreadit_creationdate) VALUES (? ,?, ?)'
-				,[subreaditname, subreaditmod, currentime ], function(err, results, fields) {
+			database.cfg.query('INSERT INTO subreadits (subreadit_name, subreadit_moderatorname) VALUES (? ,?)'
+				,[subreaditname, subreaditmod], function(err, results, fields) {
 					if (!err){
 						res.send({ message: 'Post successfuly created!'});
 					} else {
@@ -226,7 +226,7 @@ app.post('/api/upvotepost', function(req, res) {
 			if (!err){
 				//Update postlikes
 				postlikes = postlikes + 1;
-				connection.query('UPDATE posts SET post_likes = ? WHERE post_id = ?', [postlikes, postid], function (err, results, fields) {
+				database.cfg.query('UPDATE posts SET post_likes = ? WHERE post_id = ?', [postlikes, postid], function (err, results, fields) {
 					if (err) {
 						postmessage = "Upvoting post with ID " + postid + "failed.";
 						res.send({ message: postmessage});
@@ -259,7 +259,7 @@ app.post('/api/downvotepost', function(req, res) {
 			if (!err){
 				//Update postlikes
 				postlikes = postlikes - 1;
-				connection.query('UPDATE posts SET post_likes = ? WHERE post_id = ?', [postlikes, postid], function (err, results, fields) {
+				database.cfg.query('UPDATE posts SET post_likes = ? WHERE post_id = ?', [postlikes, postid], function (err, results, fields) {
 					if (err) {
 						postmessage = "Downvoting post with ID " + postid + "failed.";
 						res.send({ message: postmessage});
