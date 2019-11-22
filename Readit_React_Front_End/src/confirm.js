@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class Start extends React.Component
+class Confirm extends React.Component
 {
     constructor(props)
     {
@@ -11,9 +11,9 @@ class Start extends React.Component
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
       // Call our fetch function below once the component mounts
-    this.callBackendAPI()
+    await this.callBackendAPI()
       .then(res => this.setState({ loggedin: res.loggedin }))
       .catch(err => console.log(err));
     }
@@ -28,34 +28,35 @@ class Start extends React.Component
       return body;
     };
 
-  logout()
+  checkLoginStatus()
   {
     if (this.state.loggedin)
     {
-      alert("This should log you out when the api endpoint is written");
+      return (
+          <div>
+              <h1> Login Successful! </h1>
+          </div>
+      )
     }
     else
     {
-      alert("You are already logged out!");
+      return (
+          <div>
+              <h1> Login Failed. . .</h1>
+                <Link to="/login">
+                    <button className="login-butt"> Try Login Again </button>
+                </Link>
+          </div>
+      )
     }
   }
-
+  
     render() {
+        
         return(
-          <div className="App">
-          <header className="App-header">
-            <h1 className="App-title">Welcome to Readit</h1>
-          </header>
-          <Link to="/login">
-              <button className="login-butt"> Login </button>
-          </Link>
-          <Link to="/signup">
-            <button className="signup-butt"> Signup </button>
-          </Link>
-          <button className="signup-butt" onClick={() => {this.logout()}}> Sign Out </button>
-        </div>
+          this.checkLoginStatus()
         )
     }
 }
 
-export default Start;
+export default Confirm;

@@ -132,7 +132,7 @@ app.post('/api/auth', function(req, res) {
 	} else {
 		//No password
 		res.send({ message: 'Please enter a user name and password' });
-		response.end();
+		res.end();
 	}
 });
 
