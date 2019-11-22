@@ -24,7 +24,6 @@ function InitializeMySQLSession(){
         return;
         }
         console.log("Connection to COSC484 project database server successfully created!");
-        console.log('Server spool up succesful, running at http://127.0.0.1:port\n');
     });
 };
 
