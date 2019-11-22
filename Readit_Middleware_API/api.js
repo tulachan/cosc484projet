@@ -20,6 +20,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
+console.log("API running on " +  URL + ":" + port);
+
 //Express uses the bodyparser to create JSON
 //Bodyparsing arguements for the login page.
 app.use(bodyParser.urlencoded({extended: true}));
@@ -28,9 +30,6 @@ console.log('\nServer spooling up. \n');
 //Tests ability to create MySQL session.
 //Please do not delete this function
 database.InitializeMySQLSession();
-
-
-
 
 // Fetch your endpoints in react and handle the frontend there
 // These endpoints here should only do things like returning json to the frontend
@@ -44,45 +43,84 @@ app.get('/start', (req, res) => {
 });
 
                                              
-
-// Create sub-readit at /new?sub=name
-app.get('/api/newSubReadit', function(req, res) {
-	//API Checks if user is logged in or not
-	//If not no subreadit for you
+// Create sub-readit using a post request.
+app.post('/api/newpost', function(req, res) {
+	postauthor = req.session.username;
+	postbody = req.session.postbody;
+	posttitle = req.session.posttitle;
+	postsubreadit = req.session.postsubreadit;
+	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
-	let q = req.query;
-    if ("sub" in q)
-    {
-		let dir = q.sub;
-		let sub = dir;
-		console.log("Someone attempting to make sub-readit: " + dir);
-		dir = "./sub/" + dir;
-		if (!fs.existsSync(dir))
-		{
-			fs.mkdirSync(dir);
-			//response.send("Created!");
-		}
-		else
-		{
-			//response.send("That sub-readit already exists. . .");
-		}
-		// send the client to the sub-readit here
-		let rd = URL+":"+port+ '/sub/' + sub;
-		console.log(rd);
-		//response.redirect(rd);
-		res.writeHead(302, {Location: rd} );
-		res.end();		
-		console.log("Done\n");
-    }
-    else
-    {
-        res.status(401).send("Invalid argument, format is /new?sub=NAME");
-        console.log("Invalid format presented. . . not sent\n");
+		database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [postsubreadit], function(err, results, fields){
+			if(results[0] == null){
+			database.cfg.query('INSERT INTO posts (post_body, post_title, post_subreadit, post_author, post_creationdate) VALUES (? ,?,?,?, curdate())'
+				,[postbody, posttitle, postsubreadit, postauthor], function(err, results, fields) {
+					if (!err){
+						res.send({ message: 'Post successfuly created!'});
+					} else {
+						res.send({ message: 'Failed to post'});
+					}
+				});
+			}
+		});
 	}
-	
-	} else {
-		res.status(401).send("Invalid session");
-	}
+	});
+
+//Displays top posts on whole site with a start at 1000 likes.
+app.get('/api/topposts', function(req, res) {
+	let likerange = 1000;
+	database.cfg.query('SELECT * FROM posts WHERE post_likes >= ?', [likerange], function(err, results, fields){
+		if(err){
+			res.send({ message: 'Failed to get top posts'});
+		} else {
+			res.send(results);
+		}
+	});
+});
+
+
+//Displays the subreadit
+app.get('/api/displaysubreadit', function(req, res) {    
+	let subreadit = req.param('subreadit');
+	database.cfg.query('SELECT * FROM posts WHERE post_subreadit = ?', [subreadit], function(err, results, fields){
+		if(results[0] == null){
+			res.send({message: 'Failed to get subreadit posts'});
+		} else {
+			res.send(results);
+		}
+	});
+});
+
+
+//Creates new subreadit and makes the creator a moderator on said subreadit.
+app.post('/api/newsubreadit', function(req, res) {
+	subreaditmod = req.session.username;
+	subreaditname = req.session.subreaditname;
+	posttitle = req.session.posttitle;
+	postsubreadit = req.session.postsubreadit;
+	//If not logged in can't create subreddit.
+	if (req.session.loggedin) {
+			database.cfg.query('INSERT INTO subreadits (subreadit_name, subreadit_moderatorname, subreadit_creationdate) VALUES (? ,?, curdate())'
+				,[subreaditname, subreaditmod], function(err, results, fields) {
+					if (!err){
+						res.send({ message: 'Post successfuly created!'});
+					} else {
+						res.send({ message: 'Failed to post'});
+					}
+				});
+			}
+});
+
+//Displays subreadit info
+app.get('/api/displaysubreaditinfo', function(req, res) {    
+	let subreadit = req.param('subreadit');
+	database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [subreadit], function(err, results, fields){
+		if(results[0] == null){
+			res.send({message: 'Failed to get subreadit info'});
+		} else {
+			res.send(results);
+		}
+	});
 });
 
 //Is the user logged in?
@@ -94,6 +132,7 @@ app.get('/api/isloggedin', function(req, res) {
 	} 	
 });
 
+//Who am I?
 app.get('/api/whoami', function(req, res) {
 	
 	if (req.session.loggedin) {
@@ -103,13 +142,20 @@ app.get('/api/whoami', function(req, res) {
 	}	
 });
 
+//Logs you out.
+app.get('/api/logout', function(req, res) {
+	req.session.loggedin = false;
+	req.session.username = '';
+	req.session.password = '';
+	res.send({ message: 'You have been logged out'});	
+});
+
+
 app.get('/api/apitest', function(req, res) {
 	req.session.loggedin = true;
 	req.session.username = 'API Test';
 	res.send({ message: 'Express'});	
 });
-			//Use this when creating new users.
-			//INSERT INTO `accounts` (`id`, `username`, `password`, `email`) VALUES (1, 'test', 'test', 'test@test.com');
 
 // Auth function
 app.post('/api/auth', function(req, res) {
@@ -122,12 +168,13 @@ app.post('/api/auth', function(req, res) {
 			if (results.length > 0) {
 				req.session.loggedin = true;
 				req.session.username = username;
-				res.redirect('/home');
+				res.send({ message: 'Please enter a user name and password' });
+
 				//Redirects us to the home path
 			} else {
 				res.send({ message: 'Please enter a user name and password' });
 			}			
-			res.end();
+			res.send();
 		});
 	} else {
 		//No password
@@ -195,6 +242,9 @@ app.post('/api/upvotepost', function(req, res) {
 	}
 });
 
+
+
+
 app.post('/api/downvotepost', function(req, res) {
 	let postid = req.body.postid;
 	let postlikes = req.body.postlikes;
@@ -224,9 +274,6 @@ app.post('/api/downvotepost', function(req, res) {
 		res.send({ message: 'You need to be logged into to do that'});
 	}
 });
-
-
-
 
 
 
