@@ -40,9 +40,11 @@ class Login extends React.Component
       }
       return body;
     };
+    
 
     isLoggedIn()
     {
+        
         if (this.state.loggedin)
         {
             return(
@@ -54,6 +56,7 @@ class Login extends React.Component
         else
         {
             return(
+                
             <div className="login-textbox">
                 <h1 className="login-title"> Login Page {this.state.data} </h1>
                 <form className="login-form">
@@ -75,6 +78,7 @@ class Login extends React.Component
 
     updateDatabase()
     {
+        
         fetch('/api/auth' , {
             method: "POST",
             headers: {
