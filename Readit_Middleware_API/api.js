@@ -189,7 +189,7 @@ app.get('/api/apitest', function(req, res) {
 });
 
 // Auth function
-app.get('/api/auth', function(req, res) {
+app.post('/api/auth', function(req, res) {
 	let username = req.session.username;
 	let password = req.session.password;
 	req.session.username = username;
