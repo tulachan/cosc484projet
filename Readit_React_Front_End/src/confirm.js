@@ -37,6 +37,9 @@ class Confirm extends React.Component
       return (
           <div>
               <h1> Login Successful! </h1>
+              <Link to="/userPage">
+                    
+                </Link>
           </div>
       )
     }

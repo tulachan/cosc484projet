@@ -12,7 +12,6 @@ function validate(firstname, lastname, username, password, vpassword, email)
         username: username.length===0,
         password: password.length===0,
         vpassword: vpassword.length===0,
-        firstname: firstname.length===0,
         email: email.length=== 0
     };
 }
@@ -57,12 +56,7 @@ class Signup extends React.Component
     }
     handleChangeVerifyPass = (event) => {
         this.setState({vpassword: event.target.value});
-        if(this.state.password!== this.state.vpassword)
-        {
-            alert("Password doesnt match");
-            this.isverified= false; 
-        }
-    };
+    }
     handleChangeEmail = (event) => {
         this.setState({email: event.target.value});
     }
@@ -75,6 +69,18 @@ class Signup extends React.Component
         }
         const {firstname,lastname, username,password,vpassword,email}= this.state;
     };
+
+    passwordsMatch = () => {
+        if(this.state.vpassword !== this.state.password)
+        {
+            alert("Password doesnt match and please fix password before move on");
+            return false; 
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     canBeSubmitted(){
         const error= validate(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.vpassword,this.state.email);
@@ -131,13 +137,13 @@ class Signup extends React.Component
                     <input type='password' value={this.state.password} onChange={this.handleChangePass} />
                     <br/><br/>
                     <label className="signup"> Re-Enter Password:  </label>
-                    <input type='password' value={this.state.vpassword} onChange={this.handleChangeVerifyPass} />
+                    <input type='password' value={this.state.vpassword} onChange={this.handleChangeVerifyPass} onBlur={this.passwordsMatch}/>
                     <br/><br/>
-                    <label className="signup"> Enter Email address:  </label>
-                    <input type='text' value={this.state.email}  onChange={this.handleChangeEmail} />
+                    <label className="signup"> Email address:  </label>
+                    <input type='text' value={this.state.email} disabled= {!this.passwordsMatch} onChange={this.handleChangeEmail} />
                     <br/><br/>
                     <Link to="/successfulSignup">
-                        <button className="register" disabled= {isDisabled} onClick={() => {this.updateDatabase()}}> Register </button>
+                        <button className="register" disabled= {isDisabled || !this.passwordsMatch } onClick={() => {this.updateDatabase()}}> Register </button>
                     </Link>
                     <br></br>
                 </form>
@@ -158,42 +164,6 @@ class Signup extends React.Component
             .then((result) => result.json())
             .then((info) => { console.log(info); });
     }
-
-
-
-    // updateDatabase = async(data) =>
-    // {
-    //     const headers= new Headers();
-    //     headers.append('Content-type', 'application/json');
-    //     const option= 
-    //     {
-    //         method: 'POST',
-    //         headers,
-    //         body: JSON.stringify(this.data),
-        
-
-    //     };
-    //     const request= new Request('/api/registernewuser', option)
-    //     const response= await fetch(request);
-    //     const status= await(response.status);
-
-    //     if( status=== 201)
-    //     {
-    //         console.log("aayyyooooo");
-    //     }
-    // }
-
-
-        // fetch('/api/registernewuser' , {
-        //     method: "POST",
-        //     headers: {
-                
-        //     },
-        //     body: JSON.stringify(this.state)
-        //     })
-        //     .then((result) => result.json())
-        //     .then((info) => { console.log(info); })
-    
 
     render() {
         return(
