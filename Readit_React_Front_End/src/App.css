@@ -37,3 +37,15 @@
   background-color: #282c34; 
   color: white;
 }
+.social-links {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  bottom: 100;
+}
+
+.social-links i {
+  color: black;
+  font-size: 2.3em;
+  padding: 8px;
+}
