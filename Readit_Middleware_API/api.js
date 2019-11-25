@@ -197,6 +197,7 @@ app.post('/api/auth', function(req, res) {
 			database.cfg.query('SELECT * FROM accounts WHERE account_username = ? AND account_password = ?', [username, password], function(err, results, fields){
 				if (results.length != 0) {
 					req.session.loggedin = true;
+					req.session.username = username;
 					res.send({ message: 'Login succesful, welcome ' + req.session.username});
 					//Redirects us to the home path
 				} else {
