@@ -66,9 +66,13 @@ class Login extends React.Component
                     <br></br>
                     <label className="pass"> Password </label>
                     <input type='password' onChange={this.handleChangePass} />
+                    <br></br>   
+                    <a href='/forgotpage'>Forgot Password?</a>
                     <br></br>
+                    
+
                     <Link to="/confirm">
-                        <button onClick={() => {this.updateDatabase()}}> Login </button>
+                        <button onClick={() => {this.checkDatabase()}}> Login </button>
                     </Link>
                 </form>
             </div>
@@ -76,7 +80,7 @@ class Login extends React.Component
         }
     }
 
-    updateDatabase()
+    checkDatabase()
     {
         
         fetch('/api/auth' , {
@@ -88,6 +92,7 @@ class Login extends React.Component
             })
             .then((result) => result.json())
             .then((info) => { console.log(info); });
+            
     }
 
     render() {

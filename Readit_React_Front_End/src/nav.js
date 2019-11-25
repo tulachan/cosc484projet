@@ -10,7 +10,10 @@ import CreateSub from "./createsub";
 import Login from "./login";
 import UsersPage from "./UsersPage";
 import Signup from "./signup";
+import Forgotpage from './forgotpage';
 import SuccessfulSignup from './successsfulSignup';
+import ResetPassword from './resetpassword';
+
 
 function Nav()
 {
@@ -51,6 +54,8 @@ function Nav()
             <Route path="/createSub"> <CreateSub /> </Route>
             <Route path="/successfulSignup"> <SuccessfulSignup /> </Route>
             <Route path="/usersPage"> <UsersPage /> </Route>
+            <Route path="/forgotpage"> <Forgotpage/> </Route>
+            <Route path="/resetpassword"> <ResetPassword/> </Route>
           </Switch>
         </div>
         <div className="social-links">
