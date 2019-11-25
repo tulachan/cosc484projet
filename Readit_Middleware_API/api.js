@@ -121,7 +121,7 @@ app.post('/api/displaysubreadit', function(req, res) {
 //Creates new subreadit and makes the creator a moderator on said subreadit.
 app.post('/api/newsubreadit', function(req, res) {
 	let subreaditmod = req.body.username;
-	let subreaditname = req.body.subreadit_name
+	let subreaditname = req.body.subreaditname
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
 			database.cfg.query('INSERT INTO subreadits (subreadit_name, subreadit_moderatorname) VALUES (? ,?)'
