@@ -309,6 +309,36 @@ app.get('/api/downvotepost', function(req, res) {
 			res.send({ message: 'You need to be logged into to do that'});
 		}
 	});
+
+//Delete a post
+app.post('/api/deletepost', function(req, res) {
+	let postid = req.body.postid;
+	let postmessage = "";
+	if (req.session.loggedin) {
+		// Insert the provided values into respective fields.
+		database.cfg.query('SELECT * FROM posts WHERE post_id = ?', [postid], function(err, results, fields){
+			if (results.length > 0) {
+			//if we have results and no errors we continue
+			if (!err){
+				connection.query('DELETE FROM posts WHERE post_id = ?', [postid], function (err, results, fields) {
+					if (err) {
+						postmessage = "Deleting post with ID " + postid + "failed.";
+						res.send({ message: postmessage});
+					}
+				  });
+				postmessage = "Deleting post with ID " + postid + "succeeded.";
+				res.send({ message: postmessage});
+			} else {
+				postmessage = "Deleting post with ID " + postid + "failed.";
+				res.send({ message: postmessage});			}
+			}
+		});
+	} else {
+		res.send({ message: 'You need to be logged into to do that'});
+	}
+});
+
+
 	
 
 
