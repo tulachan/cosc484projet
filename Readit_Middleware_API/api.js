@@ -34,22 +34,14 @@ database.InitializeMySQLSession();
 // Fetch your endpoints in react and handle the frontend there
 // These endpoints here should only do things like returning json to the frontend
 // or handle requests to the database, create files/directories, etc.
-
- 
-
-// create a GET route
-app.get('/start', (req, res) => {
-	res.send( {express: "This is sent from the backend"});
-});
-
                                              
 // Create sub-readit using a post request.
 app.post('/api/newpost', function(req, res) {
-	postauthor = req.session.username;
+	postauthor = req.body.username;
 	//Just send theses in the body.
-	postbody = req.body.post_body;
-	posttitle = req.body.post_title;
-	postsubreadit = req.body.post_subreadit
+	postbody = req.body.postbody;
+	posttitle = req.body.posttitle;
+	postsubreadit = req.body.postsubreadit
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
 		database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [postsubreadit], function(err, results, fields){
@@ -128,7 +120,7 @@ app.post('/api/displaysubreadit', function(req, res) {
 
 //Creates new subreadit and makes the creator a moderator on said subreadit.
 app.post('/api/newsubreadit', function(req, res) {
-	let subreaditmod = req.session.username;
+	let subreaditmod = req.body.username;
 	let subreaditname = req.body.subreadit_name
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
