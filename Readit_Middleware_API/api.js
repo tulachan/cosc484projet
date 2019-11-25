@@ -192,8 +192,6 @@ app.get('/api/apitest', function(req, res) {
 app.post('/api/auth', function(req, res) {
 	let username = req.session.username;
 	let password = req.session.password;
-	req.session.username = username;
-	if(!req.session.loggedin){
 		if (username && password) {
 			//How you send MySQL queries to the database.
 			database.cfg.query('SELECT * FROM accounts WHERE account_username = ? AND account_password = ?', [username, password], function(err, results, fields){
@@ -209,16 +207,13 @@ app.post('/api/auth', function(req, res) {
 			//No password
 			res.send({ message: 'Please enter a user name and password' });
 		}
-	} else {
-		//No password
-		res.send({ message: 'You are already logged in, please logout' });
-	}
+	
 });
 
 // addUser function to add the given details in database
 app.post('/api/registernewuser', function(req, res) {
-	let firstname = req.body.firstname
-	let lastname = req.body.lastname
+	let firstname = req.body.firstname;
+	let lastname = req.body.lastname;
 	let username = req.body.username;
 	let password = req.body.password;
 	let email = req.body.email;
@@ -311,26 +306,33 @@ app.get('/api/downvotepost', function(req, res) {
 	});
 
 //Delete a post
-app.post('/api/deletepost', function(req, res) {
-	let postid = req.body.postid;
+app.get('/api/deletepost', function(req, res) {
+	let postid = req.param('postid');
+	let username = req.session.username;
 	let postmessage = "";
 	if (req.session.loggedin) {
 		// Insert the provided values into respective fields.
 		database.cfg.query('SELECT * FROM posts WHERE post_id = ?', [postid], function(err, results, fields){
-			if (results.length > 0) {
+			if (results.length > 0 && username == results[0].post_author) {
 			//if we have results and no errors we continue
 			if (!err){
 				connection.query('DELETE FROM posts WHERE post_id = ?', [postid], function (err, results, fields) {
 					if (err) {
 						postmessage = "Deleting post with ID " + postid + "failed.";
 						res.send({ message: postmessage});
+					} else {
+						postmessage = "Deleting post with ID " + postid + "succeeded.";
+						res.send({ message: postmessage});
 					}
 				  });
-				postmessage = "Deleting post with ID " + postid + "succeeded.";
-				res.send({ message: postmessage});
+
 			} else {
 				postmessage = "Deleting post with ID " + postid + "failed.";
-				res.send({ message: postmessage});			}
+				res.send({ message: postmessage});			
+			}
+			
+			} else {
+				res.send({ message: 'You are not allowed to do that'});
 			}
 		});
 	} else {
