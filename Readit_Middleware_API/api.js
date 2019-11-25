@@ -190,8 +190,8 @@ app.get('/api/apitest', function(req, res) {
 
 // Auth function
 app.post('/api/auth', function(req, res) {
-	let username = req.session.username;
-	let password = req.session.password;
+	let username = req.body.username;
+	let password = req.body.password;
 		if (username && password) {
 			//How you send MySQL queries to the database.
 			database.cfg.query('SELECT * FROM accounts WHERE account_username = ? AND account_password = ?', [username, password], function(err, results, fields){
@@ -317,12 +317,12 @@ app.get('/api/deletepost', function(req, res) {
 			if (results.length > 0 && username == results[0].post_author) {
 			//if we have results and no errors we continue
 			if (!err){
-				connection.query('DELETE FROM posts WHERE post_id = ?', [postid], function (err, results, fields) {
+				database.cfg.query('DELETE FROM posts WHERE post_id = ?', [postid], function (err, results, fields) {
 					if (err) {
-						postmessage = "Deleting post with ID " + postid + "failed.";
+						postmessage = "Deleting post with ID " + postid + " failed.";
 						res.send({ message: postmessage});
 					} else {
-						postmessage = "Deleting post with ID " + postid + "succeeded.";
+						postmessage = "Deleting post with ID " + postid + " succeeded.";
 						res.send({ message: postmessage});
 					}
 				  });
