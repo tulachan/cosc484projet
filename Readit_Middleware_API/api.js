@@ -44,11 +44,12 @@ app.get('/start', (req, res) => {
 
                                              
 // Create sub-readit using a post request.
-app.get('/api/newpost', function(req, res) {
+app.post('/api/newpost', function(req, res) {
 	postauthor = req.session.username;
-	postbody = req.param('postbody');
-	posttitle = req.param('posttitle');
-	postsubreadit = req.param('postsubreadit');
+	//Just send theses in the body.
+	postbody = req.body.post_body;
+	posttitle = req.body.post_title;
+	postsubreadit = req.body.post_subreadit
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
 		database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [postsubreadit], function(err, results, fields){
@@ -73,8 +74,8 @@ app.get('/api/newpost', function(req, res) {
 	});
 
 //Displays top posts on whole site with a start at 1000 likes.
-app.get('/api/topposts', function(req, res) {
-	let likerange = req.param('likerange');
+app.post('/api/topposts', function(req, res) {
+	let likerange = req.body.like_range
 	database.cfg.query('SELECT * FROM posts WHERE post_likes >= ?', [likerange], function(err, results, fields){
 		if(results.length == 0){
 			res.send({ message: 'Failed to get top posts'});
@@ -85,8 +86,8 @@ app.get('/api/topposts', function(req, res) {
 });
 
 //Displays post of a specific ID.
-app.get('/api/displaypostbyid', function(req, res) {
-	let postid = req.param('postid');
+app.post('/api/displaypostbyid', function(req, res) {
+	let postid = req.body.post_id;
 	database.cfg.query('SELECT * FROM posts WHERE post_id = ?', [postid], function(err, results, fields){
 		if(results.length == 0){
 			res.send({message: 'Failed to find post'});
@@ -97,8 +98,8 @@ app.get('/api/displaypostbyid', function(req, res) {
 });
 
 //Displays post of a specific user.
-app.get('/api/displaypostbyauthor', function(req, res) {
-	let postauthor = req.param('postauthor');
+app.post('/api/displaypostbyauthor', function(req, res) {
+	let postauthor = req.body.post_author;
 	database.cfg.query('SELECT * FROM posts WHERE post_author = ?', [postauthor], function(err, results, fields){
 		if(results.length == 0){
 			res.send({message: 'Failed to find posts by this user'});
@@ -112,9 +113,9 @@ app.get('/api/displaypostbyauthor', function(req, res) {
 
 
 //Displays the subreadit
-app.get('/api/displaysubreadit', function(req, res) {    
-	let subreadit = req.param('subreadit');
-	database.cfg.query('SELECT * FROM posts WHERE post_subreadit = ?', [subreadit], function(err, results, fields){
+app.post('/api/displaysubreadit', function(req, res) {    
+	let subreaditname = req.body.subreadit_name
+	database.cfg.query('SELECT * FROM posts WHERE post_subreadit = ?', [subreaditname], function(err, results, fields){
 		if(err){
 			res.send({message: 'Failed to get subreadit posts'});
 		} else {
@@ -126,9 +127,9 @@ app.get('/api/displaysubreadit', function(req, res) {
 
 
 //Creates new subreadit and makes the creator a moderator on said subreadit.
-app.get('/api/newsubreadit', function(req, res) {
-	subreaditmod = req.session.username;
-	subreaditname = req.param('subreaditname');
+app.post('/api/newsubreadit', function(req, res) {
+	let subreaditmod = req.session.username;
+	let subreaditname = req.body.subreadit_name
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
 			database.cfg.query('INSERT INTO subreadits (subreadit_name, subreadit_moderatorname) VALUES (? ,?)'
@@ -143,9 +144,9 @@ app.get('/api/newsubreadit', function(req, res) {
 });
 
 //Displays subreadit info
-app.get('/api/displaysubreaditinfo', function(req, res) {    
-	let subreadit = req.param('subreadit');
-	database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [subreadit], function(err, results, fields){
+app.post('/api/displaysubreaditinfo', function(req, res) {    
+	let subreaditname = req.body.subreadit_name
+	database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [subreaditname], function(err, results, fields){
 		if(results[0] == null){
 			res.send({message: 'Failed to get subreadit info'});
 		} else {
@@ -239,8 +240,8 @@ app.post('/api/registernewuser', function(req, res) {
 });
 
 //Upvotes a post
-app.get('/api/upvotepost', function(req, res) {
-	let postid = req.param('postid');
+app.post('/api/upvotepost', function(req, res) {
+	let postid = req.body.post_id;
 	let postmessage = "";
 	if (req.session.loggedin) {
 		// Insert the provided values into respective fields.
@@ -275,8 +276,8 @@ app.get('/api/upvotepost', function(req, res) {
 });
 
 
-app.get('/api/downvotepost', function(req, res) {
-		let postid = req.param('postid');
+app.post('/api/downvotepost', function(req, res) {
+		let postid = req.body.post_id;
 		let postmessage = "";
 		if (req.session.loggedin) {
 			// Insert the provided values into respective fields.
@@ -307,8 +308,8 @@ app.get('/api/downvotepost', function(req, res) {
 	});
 
 //Delete a post
-app.get('/api/deletepost', function(req, res) {
-	let postid = req.param('postid');
+app.post('/api/deletepost', function(req, res) {
+	let postid = req.body.post_id;
 	let username = req.session.username;
 	let postmessage = "";
 	if (req.session.loggedin) {
