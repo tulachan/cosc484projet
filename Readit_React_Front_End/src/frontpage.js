@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// you can paste: { this.state.array } into the <div> tag for return to see then names of the array headers when it throws the error
+// This page dynamically loads the top posts from the database
+
+// This is an example of the array returned by the database:
+// example: [{post_likes: 0, post_id: 42, post_body: "this is the body", post_title: "Title", post_author: "React", post_creationdate: "date", post_subreadit: "dev"}]
 
 class FrontPage extends React.Component
 {
@@ -9,8 +12,10 @@ class FrontPage extends React.Component
     {
         super(props);
         this.state = {
-            array: null // componentDidMount will grab the array from the database and update this as an array of JSON
-        };
+            like_range: 0, // database returns >= to this number
+            array: [], // componentDidMount will grab the array from the database and update this as an array of JSON
+            
+          };
     }
 
     async componentDidMount() {
@@ -19,9 +24,15 @@ class FrontPage extends React.Component
         .then(res => this.setState({ array: res }))
         .catch(err => console.log(err));
       }
-      // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js)
+
       callBackendAPI = async () => {
-        const response = await fetch('/api/topposts');
+        const response = await fetch('/api/topposts' , {
+          method: "POST",
+          headers: {
+              'Content-type': 'application/json'
+          },
+          body: JSON.stringify(this.state)
+          });
         const body = await response.json();
   
         if (response.status !== 200) {
@@ -29,16 +40,46 @@ class FrontPage extends React.Component
         }
         return body;
       };
+
+      _getPages() {    
+        return this.state.array.map((post) => { 
+          return (
+            <TopPosts 
+              author={post.post_author} 
+              body={post.post_body} 
+              likes={post.post_likes}
+              title={post.post_title}
+              date={post.post_creationdate}
+              subreadit={post.post_subreadit} />
+          ); 
+        });
+      }
+
+      
     // need to dynamically render frontpage based on array of top posts from database
     // need api endpoint to service this
-    render() {
-        return(
-            <div className="frontpage">
-                <h1> render array here </h1>
-                
-            </div>
-        )
-    }
+    render () {
+      const pages = this._getPages();
+      let PageNodes = <div>{pages}</div>;
+      
+      return(
+        <div>
+          {PageNodes}
+        </div>  
+      );
+  }
+}
+
+class TopPosts extends React.Component {
+  render () {
+    return(
+      <div className="frontpage">
+        <p className="frontpage-line">{this.props.title} Author: {this.props.author} 
+         _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
+         _Button here to view content: {this.props.body} </p>
+      </div>
+    );
+  }
 }
 
 export default FrontPage;
