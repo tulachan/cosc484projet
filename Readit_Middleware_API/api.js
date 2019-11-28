@@ -335,7 +335,7 @@ app.post('/api/deletepost', function(req, res) {
 });
 
 app.post('/api/resetpassword', function(req, res) {
-	username = req.session.username;
+	username = req.body.username;
 	answer = req.body.answer;
 	newpassword = req.body.newpassword;
 	//If not logged in can't create subreddit.
