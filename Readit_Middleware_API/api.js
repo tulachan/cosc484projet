@@ -334,6 +334,48 @@ app.post('/api/deletepost', function(req, res) {
 	}
 });
 
+app.post('/api/resetpassword', function(req, res) {
+	username = req.session.username;
+	answer = req.body.answer;
+	newpassword = req.body.newpassword;
+	//If not logged in can't create subreddit.
+		database.cfg.query('SELECT * FROM accounts WHERE account_username = ?', [username], function(err, results, fields){
+			if(results[0] == null){
+				res.send({ message: 'Failed to find account'});
+			} else {		
+				console.log(results);
+				if(answer == results[0].account_resetanswer){
+					database.cfg.query('UPDATE accounts SET account_password = ? WHERE account_id = ?', [newpassword, results[0].account_id], function (err, results, fields) {
+						if (!err){
+							res.send({ message: 'Password succesfully updated'});
+						} else {
+							res.send({ message: 'Failed to update password'});
+						}
+					});
+				} else {
+							res.send({ message: 'Incorrect answer for security question, password will not be changed'});
+				}
+
+			}
+		});
+	});
+
+
+	app.post('/api/displaysecurityquestion', function(req, res) {
+		username = req.body.username;
+			database.cfg.query('SELECT * FROM accounts WHERE account_username = ?', [username], function(err, results, fields){
+				if(results[0] == null){
+					res.send({ message: 'Failed to find account'});
+				} else {		
+					res.send({ message: results[0].account_resetquestion});
+				}
+					
+			});
+		});
+	
+
+
+
 
 	
 
