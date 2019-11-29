@@ -8,26 +8,30 @@ class UsersPage extends React.Component
 {
 constructor() {
     super();
-    
+
     this.state = {
       showComments: false,
       comments: [
         {id: 1, author: "COSC484", body: "This is working"}
-        
+
       ]
     };
   }
-  
+
+    // ToggleClick = () => {
+    //   this.setState({ show: !this.state.show });
+    // }
+
   render () {
     const comments = this._getComments();
     let commentNodes;
     let buttonText = 'Show Status';
-    
+
     if (this.state.showComments) {
       buttonText = 'Hide Status';
       commentNodes = <div className="comment-list">{comments}</div>;
     }
-    
+
     return(
       <div className="comment-box">
         <h2>Post the Status!</h2>
@@ -40,36 +44,38 @@ constructor() {
           {this._getCommentsTitle(comments.length)}
         </h4>
         {commentNodes}
-      </div>  
+
+
+      </div>
     );
   } // end render
-  
+
   _addComment(author, body) {
     const comment = {
       id: this.state.comments.length + 1,
       author,
       body
     };
-    this.setState({ comments: this.state.comments.concat([comment]) }); 
+    this.setState({ comments: this.state.comments.concat([comment]) });
   }
-  
+
   _handleClick() {
     this.setState({
       showComments: !this.state.showComments
     });
   }
-  
-  _getComments() {    
-    return this.state.comments.map((comment) => { 
+
+  _getComments() {
+    return this.state.comments.map((comment) => {
       return (
-        <Comment 
-          author={comment.author} 
-          body={comment.body} 
+        <Comment
+          author={comment.author}
+          body={comment.body}
           key={comment.id} />
-      ); 
+      );
     });
   }
-  
+
   _getCommentsTitle(commentCount) {
     if (commentCount === 0) {
       return 'No Status yet';
@@ -90,13 +96,13 @@ class CommentForm extends React.Component {
           <textarea placeholder="Comment" rows="4" required ref={(textarea) => this._body = textarea}></textarea>
         </div>
         <div className="comment-form-actions">
-          <button type="submit">Post Status</button>
+          <button type="submit">Post Status </button>
         </div>
       </form>
     );
   } // end render
-  
-  _handleSubmit(event) { 
+
+  _handleSubmit(event) {
     event.preventDefault();   // prevents page from reloading on submit
     let author = this._author;
     let body = this._body;
@@ -105,21 +111,46 @@ class CommentForm extends React.Component {
 } // end CommentForm component
 
 class Comment extends React.Component {
+  constructor() {
+      super();
+
+      this.state = {
+        clicks: 0,
+       show: true
+     };
+   }
+
+
+  IncrementItem = () => {
+      this.setState({ clicks: this.state.clicks + 1 });
+    }
+    DecreaseItem = () => {
+      this.setState({ clicks: this.state.clicks - 1 });
+    }
   render () {
     return(
       <div className="comment">
         <p className="comment-header">{this.props.author}</p>
         <p className="comment-body">- {this.props.body}</p>
         <div className="comment-footer">
-          <a href="#" className="comment-footer-delete" onClick={this._deleteComment}>Delete Comment</a>
+        <button href="#" className="comment-footer-delete" onClick={this.IncrementItem}>like</button>
+          <button href="#" className="comment-footer-delete" onClick={this.DecreaseItem}>unlike</button>
+
+          { this.state.show ? <h2>{ this.state.clicks }</h2> : '' }
         </div>
       </div>
     );
   }
-  _deleteComment() {
-    alert("Comment Deleted");
-  }
-}
+
+//  _Likes(commentCount) {
+  //  if (commentCount === 0) {
+//      return 'No Status yet';
+//    } else if (commentCount === 1) {
+//      return "1 Status";
+//    } else {
+//      return `${commentCount} Status`;
+//    }
+//  }
+};
 
 export default UsersPage;
-
