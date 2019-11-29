@@ -211,10 +211,12 @@ app.post('/api/registernewuser', function(req, res) {
 	let username = req.body.username;
 	let password = req.body.password;
 	let email = req.body.email;
+	let securityquestion = req.body.securityquestion;
+	let securityanswer = req.body.securityanswer;
 	if (username && password) {
 		// Insert the provided values into respective fields.
-		database.cfg.query('INSERT INTO accounts (account_username, account_password, account_email, account_firstname, account_lastname) VALUES (? , ?, ?, ?, ?)'
-		,[username, password, email, firstname, lastname], function(err, results, fields) {
+		database.cfg.query('INSERT INTO accounts (account_username, account_password, account_email, account_firstname, account_lastname, account_resetquestion, account_resetanswer) VALUES (? , ?, ?, ?, ?,?,?)'
+		,[username, password, email, firstname, lastname, securityanswer,securityquestion], function(err, results, fields) {
 			if (!err){
 				res.send({ message: 'Account successfuly created!'});
 				console.log("New user created");
@@ -338,7 +340,6 @@ app.post('/api/resetpassword', function(req, res) {
 	username = req.body.username;
 	answer = req.body.answer;
 	newpassword = req.body.newpassword;
-	//If not logged in can't create subreddit.
 		database.cfg.query('SELECT * FROM accounts WHERE account_username = ?', [username], function(err, results, fields){
 			if(results[0] == null){
 				res.send({ message: 'Failed to find account'});
