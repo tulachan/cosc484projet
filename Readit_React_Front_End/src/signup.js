@@ -3,7 +3,7 @@ import './signup.css';
 import { Link } from 'react-router-dom';
 
 // signup needs to be coded to require all fields before submitting to database, otherwise the database will not create an entry and the user will not be able to login
-function validate(firstname, lastname, username, password, vpassword, email)
+function validate(firstname, lastname, username, password, vpassword, email, securityanswer)
 {
     return{
         
@@ -12,6 +12,7 @@ function validate(firstname, lastname, username, password, vpassword, email)
         username: username.length===0,
         password: password.length===0,
         vpassword: vpassword.length===0,
+        securityanswer: securityanswer.length===0,
         email: email.length=== 0
     };
 }
@@ -31,6 +32,8 @@ class Signup extends React.Component
             password: "",
             vpassword: "",
             email: "",
+            securityquestion: "",
+            securityanswer: "",
             loggedin: false,
 
             everFocusedFirstname: false,
@@ -38,6 +41,7 @@ class Signup extends React.Component
             everFocusedUsername: false,
             everFocusedPassword: false,
             everFocusedvPassword: false,
+            everFocusedAnswer: false,
             everFocusedEmail: false
            
         };
@@ -60,6 +64,13 @@ class Signup extends React.Component
     handleChangeEmail = (event) => {
         this.setState({email: event.target.value});
     }
+    handleChangeQuestion = (event) => {
+        this.setState({securityquestion: event.target.value});
+    }
+    handleChangeAnswer = (event) => {
+        this.setState({securityanswer: event.target.value});
+    }
+
 
     handleSubmit= (event)=>{
         if(!this.canBeSubmitted())
@@ -67,7 +78,7 @@ class Signup extends React.Component
             event.preventDefault();
             return;
         }
-        const {firstname,lastname, username,password,vpassword,email}= this.state;
+        const {firstname,lastname, username,password,vpassword,email, securityanswer}= this.state;
     };
 
     passwordsMatch = () => {
@@ -83,7 +94,7 @@ class Signup extends React.Component
     }
 
     canBeSubmitted(){
-        const error= validate(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.vpassword,this.state.email);
+        const error= validate(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.vpassword,this.state.email, this.state.securityanswer);
         const isDisabled= Object.keys(error).some(x=> error[x]);  
         return !isDisabled;
         
@@ -118,7 +129,7 @@ class Signup extends React.Component
             )
         }
         else
-        {  const error= validate(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.vpassword,this.state.email);
+        {  const error= validate(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.vpassword,this.state.email,this.state.securityanswer);
             const isDisabled= Object.keys(error).some(x=> error[x]); 
             return(
             <div className="signup-textbox">
@@ -142,8 +153,22 @@ class Signup extends React.Component
                     <label className="signup"> Email address:  </label>
                     <input type='text' value={this.state.email} disabled= {!this.passwordsMatch} onChange={this.handleChangeEmail} />
                     <br/><br/>
+                    <br/><br/>
+                    <label className="signup"> Choose a Security Question  </label>
+                    <br></br>
+                    <br></br>
+                    Questions <select value={this.state.securityquestion} onChange= {this.handleChangeQuestion}>
+                    <option>Choose a Question</option>
+                    <option value="What is your first pet name?">What is your first pet name?</option>
+                    <option value="What is make of your first car?">What is make of your first car?</option>
+                    <br></br>
+                    </select>
+                    <br></br>
+                    <label className="signup"> Answer:  </label>
+                    <input type='text' value={this.state.securityanswer} onChange={this.handleChangeAnswer} />
+                    <br></br>
                     <Link to="/successfulSignup">
-                        <button className="register" disabled= {isDisabled || !this.passwordsMatch } onClick={() => {this.updateDatabase()}}> Register </button>
+                        <button className="register" disabled= {isDisabled} onClick={() => {this.updateDatabase()}}> Register </button>
                     </Link>
                     <br></br>
                 </form>
