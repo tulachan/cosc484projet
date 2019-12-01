@@ -13,13 +13,15 @@ class CreateSub extends React.Component
     {
         super(props);
         this.state = {
-            username: "ta",
             subreaditname: "",
+            link: "",
             loggedin: false
         };
     }
     handleChangeSub = (event) => {
+        let newlink = "subreadit/" + event.target.value;
         this.setState({subreaditname: event.target.value});
+        this.setState({link: newlink});
     }
 
     componentDidMount() {
@@ -51,7 +53,7 @@ class CreateSub extends React.Component
                     <input type='text' onChange={this.handleChangeSub} />
                     <br/><br/>
                     <p> Hello {this.state.username}! This subReadit is called: {this.state.subreaditname}</p>
-                    <Link to="/frontpage">
+                    <Link to= {this.state.link}>
                         <button className="register" onClick={() => {this.updateDatabase()}}> Create </button>
                     </Link>
                     <br></br>

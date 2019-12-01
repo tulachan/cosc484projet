@@ -13,10 +13,10 @@ class CreatePost extends React.Component
     {
         super(props);
         this.state = {
-            username: "ta",
             postbody: "", 
             posttitle: "",
             postsubreadit: "",
+            link: "",
             loggedin: false
         };
     }
@@ -28,6 +28,8 @@ class CreatePost extends React.Component
     }
     handleChangeSub = (event) => {
         this.setState({postsubreadit: event.target.value});
+        let newlink = "subreadit/" + event.target.value;
+        this.setState({link: newlink});
     }
 
     componentDidMount() {
@@ -65,7 +67,7 @@ class CreatePost extends React.Component
                     <textarea onChange={this.handleChangeBody} />
                     <br/><br/>
                     <p> Hello {this.state.username}! This post is called: {this.state.posttitle} . . . You are posting to: {this.state.postsubreadit} . . . You are posting: {this.state.postbody} </p>
-                    <Link to="/frontpage">
+                    <Link to={this.state.link}>
                         <button className="register" onClick={() => {this.updateDatabase()}}> Create </button>
                     </Link>
                     <br></br>
