@@ -17,6 +17,7 @@ class CreatePost extends React.Component
             posttitle: "",
             postsubreadit: "",
             link: "",
+            postislink: 0,
             loggedin: false
         };
     }
@@ -30,6 +31,12 @@ class CreatePost extends React.Component
         this.setState({postsubreadit: event.target.value});
         let newlink = "subreadit/" + event.target.value;
         this.setState({link: newlink});
+    }
+    handleChangeCheck = (event) => {
+        if (this.state.postislink == 0)
+            this.setState({postislink: 1});
+        else
+        this.setState({postislink: 0}); 
     }
 
     componentDidMount() {
@@ -66,6 +73,8 @@ class CreatePost extends React.Component
                     <label className="signup"> Post Body:  </label>
                     <textarea onChange={this.handleChangeBody} />
                     <br/><br/>
+                    <label> This is a link </label>
+                    <input className="signup" type="checkbox" onChange={this.handleChangeCheck}/>
                     <p> Hello {this.state.username}! This post is called: {this.state.posttitle} . . . You are posting to: {this.state.postsubreadit} . . . You are posting: {this.state.postbody} </p>
                     <Link to={this.state.link}>
                         <button className="register" onClick={() => {this.updateDatabase()}}> Create </button>

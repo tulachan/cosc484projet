@@ -49,7 +49,8 @@ class FrontPage extends React.Component
               likes={post.post_likes}
               title={post.post_title}
               date={post.post_creationdate}
-              subreadit={post.post_subreadit} />
+              subreadit={post.post_subreadit}
+              islink={post.post_islink} />
           ); 
         });
       }
@@ -73,7 +74,7 @@ class TopPosts extends React.Component {
   render () {
     return(
       <div>
-          <p> {this.getType(false)}  Author: {this.props.author} 
+          <p> {this.getType(this.props.islink)}  Author: {this.props.author} 
          _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
          </p> 
         </div>
