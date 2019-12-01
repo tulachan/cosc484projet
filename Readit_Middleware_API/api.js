@@ -42,6 +42,7 @@ app.post('/api/newpost', function(req, res) {
 	postbody = req.body.postbody;
 	posttitle = req.body.posttitle;
 	postsubreadit = req.body.postsubreadit
+	postislink = req.body.postislink;
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
 		database.cfg.query('SELECT * FROM subreadits WHERE subreadit_name = ?', [postsubreadit], function(err, results, fields){
@@ -49,8 +50,8 @@ app.post('/api/newpost', function(req, res) {
 				res.send({ message: 'Failed to post'});
 			} else {		
 				console.log(results);
-			database.cfg.query('INSERT INTO posts (post_body, post_title, post_subreadit, post_author) VALUES (? ,?,?,?)'
-			,[postbody, posttitle, postsubreadit, postauthor], function(err, results, fields) {
+			database.cfg.query('INSERT INTO posts (post_body, post_title, post_subreadit, post_author, post_islink) VALUES (? ,?,?,?,?)'
+			,[postbody, posttitle, postsubreadit, postauthor,postislink], function(err, results, fields) {
 				if (!err){
 					res.send({ message: 'Post successfuly created!'});
 				} else {
