@@ -216,7 +216,7 @@ app.post('/api/registernewuser', function(req, res) {
 	if (username && password) {
 		// Insert the provided values into respective fields.
 		database.cfg.query('INSERT INTO accounts (account_username, account_password, account_email, account_firstname, account_lastname, account_resetquestion, account_resetanswer) VALUES (? , ?, ?, ?, ?,?,?)'
-		,[username, password, email, firstname, lastname, securityanswer,securityquestion], function(err, results, fields) {
+		,[username, password, email, firstname, lastname, securityquestion, securityanswer], function(err, results, fields) {
 			if (!err){
 				res.send({ message: 'Account successfuly created!'});
 				console.log("New user created");
