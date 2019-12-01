@@ -12,7 +12,7 @@ class FrontPage extends React.Component
     {
         super(props);
         this.state = {
-            like_range: 0, // database returns >= to this number
+            like_range: 1000, // database returns >= to this number
             array: [], // componentDidMount will grab the array from the database and update this as an array of JSON
             
           };
@@ -73,12 +73,17 @@ class FrontPage extends React.Component
 class TopPosts extends React.Component {
   render () {
     return(
-      <div className="frontpage">
-        <p className="frontpage-line">{this.props.title} Author: {this.props.author} 
+      <div>
+        <p> <button onClick={() => {this.display(this.props.body)}}> {this.props.title} </button> Author: {this.props.author} 
          _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
-         _Button here to view content: {this.props.body} </p>
+         </p> 
       </div>
     );
+  }
+
+  display(body)
+  {
+    alert(body);
   }
 }
 

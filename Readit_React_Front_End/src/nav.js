@@ -12,7 +12,7 @@ import UsersPage from "./UsersPage";
 import Signup from "./signup";
 import Forgotpage from './forgotpage';
 import SuccessfulSignup from './successsfulSignup';
-import ResetPassword from './resetpassword';
+import Sub from './sub';
 
 
 function Nav()
@@ -44,6 +44,7 @@ function Nav()
         <div>
           <Switch>
             <Route path="/" exact> <Start /> </Route>
+            <Route path="/subreadit/"> <Sub /> </Route>
             <Route path="/login"> <Login /> </Route>
             <Route path="/confirm"> <Confirm /> </Route>
             <Route path="/frontpage"> <FrontPage /> </Route>
@@ -55,13 +56,12 @@ function Nav()
             <Route path="/successfulSignup"> <SuccessfulSignup /> </Route>
             <Route path="/usersPage"> <UsersPage /> </Route>
             <Route path="/forgotpage"> <Forgotpage/> </Route>
-            <Route path="/resetpassword"> <ResetPassword/> </Route>
           </Switch>
         </div>
         <div className="social-links">
 
 {/* LinkedIn */}
-<a href="http://google.com" rel="noopener noreferrer" target="_blank">
+<a href="https://www.linkedin.com/" rel="noopener noreferrer" target="_blank">
   <i className="fa fa-linkedin-square" aria-hidden="true" />
 </a>
 
@@ -71,7 +71,7 @@ function Nav()
 </a>
 
 {/* Youtube */}
-<a href="http://google.com" rel="noopener noreferrer" target="_blank">
+<a href="https://www.youtube.com/" rel="noopener noreferrer" target="_blank">
   <i className="fa fa-youtube-square" aria-hidden="true" />
 </a>
 
