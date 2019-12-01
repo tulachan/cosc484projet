@@ -37,7 +37,7 @@ database.InitializeMySQLSession();
                                              
 // Create sub-readit using a post request.
 app.post('/api/newpost', function(req, res) {
-	postauthor = req.body.username;
+	postauthor = req.session.username;
 	//Just send theses in the body.
 	postbody = req.body.postbody;
 	posttitle = req.body.posttitle;
@@ -120,7 +120,7 @@ app.post('/api/displaysubreadit', function(req, res) {
 
 //Creates new subreadit and makes the creator a moderator on said subreadit.
 app.post('/api/newsubreadit', function(req, res) {
-	let subreaditmod = req.body.username;
+	let subreaditmod = req.session.username;
 	let subreaditname = req.body.subreaditname
 	//If not logged in can't create subreddit.
 	if (req.session.loggedin) {
