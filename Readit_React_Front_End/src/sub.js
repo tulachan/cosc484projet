@@ -89,7 +89,7 @@ class TopPosts extends React.Component {
     render () {
       return(
         <div>
-          <p> <button onClick={() => {this.display(this.props.body)}}> {this.props.title} </button> Author: {this.props.author} 
+          <p> {this.getType(true)}  Author: {this.props.author} 
          _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
          </p> 
         </div>
@@ -97,9 +97,21 @@ class TopPosts extends React.Component {
     }
 
     display(body)
-  {
-    alert(body);
-  }
+    {
+      alert(body);
+    }
+
+    getType(islink)
+    {
+      if (islink)
+      {
+        return (<a href={this.props.body}> {this.props.title} </a>)
+      }
+      else
+      {
+        return (<button onClick={() => {this.display(this.props.body)}}> {this.props.title} </button>);
+      }
+    }
   }
 
 export default Sub;

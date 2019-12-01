@@ -5,14 +5,13 @@ import { Link } from 'react-router-dom';
 
 // This is an example of the array returned by the database:
 // example: [{post_likes: 0, post_id: 42, post_body: "this is the body", post_title: "Title", post_author: "React", post_creationdate: "date", post_subreadit: "dev"}]
-
 class FrontPage extends React.Component
 {
     constructor(props)
     {
         super(props);
         this.state = {
-            like_range: 1000, // database returns >= to this number
+            like_range: 0, // database returns >= to this number
             array: [], // componentDidMount will grab the array from the database and update this as an array of JSON
             
           };
@@ -74,10 +73,10 @@ class TopPosts extends React.Component {
   render () {
     return(
       <div>
-        <p> <button onClick={() => {this.display(this.props.body)}}> {this.props.title} </button> Author: {this.props.author} 
+          <p> {this.getType(false)}  Author: {this.props.author} 
          _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
          </p> 
-      </div>
+        </div>
     );
   }
 
@@ -85,6 +84,18 @@ class TopPosts extends React.Component {
   {
     alert(body);
   }
+
+  getType(islink)
+    {
+      if (islink)
+      {
+        return (<a href={this.props.body}> {this.props.title} </a>)
+      }
+      else
+      {
+        return (<button onClick={() => {this.display(this.props.body)}}> {this.props.title} </button>);
+      }
+    }
 }
 
 export default FrontPage;
