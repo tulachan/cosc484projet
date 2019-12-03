@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import './frontpage.css';
 // This page dynamically loads the top posts from the database
 
 // This is an example of the array returned by the database:
@@ -43,6 +43,10 @@ class FrontPage extends React.Component
       _getPages() {    
         return this.state.array.map((post) => { 
           return (
+
+            <div>
+            <h3 className='frontpage'>
+     
             <TopPosts 
               author={post.post_author} 
               body={post.post_body} 
@@ -51,6 +55,9 @@ class FrontPage extends React.Component
               date={post.post_creationdate}
               subreadit={post.post_subreadit}
               islink={post.post_islink} />
+             
+             </h3>
+              </div>
           ); 
         });
       }
@@ -73,9 +80,12 @@ class FrontPage extends React.Component
 class TopPosts extends React.Component {
   render () {
     return(
-      <div>
-          <p> {this.getType(this.props.islink)}  Author: {this.props.author} 
-         _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
+      <div className='frontpage2'>
+          <p> {this.getType(this.props.islink)}  
+          Author: {this.props.author} <br></br>
+         _Subreadit: {this.props.subreadit} <br></br>
+           Likes: {this.props.likes}<br></br>
+          Created: {this.props.date}
          </p> 
         </div>
     );

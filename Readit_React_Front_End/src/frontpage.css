@@ -1,0 +1,27 @@
+.frontpage {
+    height: 24vh;
+    background-image: linear-gradient(to right top, rgba(41, 40, 40, 0.801), rgba(3, 1, 3, 0.801)), url(./images/background1.jpg);
+    background-size: cover;
+    background-position: top;
+    text-align: left;
+    color: white;
+    font: helvetica;
+      }
+
+      .frontpage2 {
+        height: 8vh;
+        background-image: linear-gradient(to right top, rgba(0, 0, 0, 0.801), rgba(44, 44, 44, 0.801)), url(./images/background2.jpg);
+        background-size: cover;
+        background-position: top;
+        text-align: left;
+        color:white;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 200;
+        text-align: left;
+        font: helvetica;
+
+          }
+          
+          
+    
