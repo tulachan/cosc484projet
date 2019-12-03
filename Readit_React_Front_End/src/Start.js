@@ -59,14 +59,24 @@ class Start extends React.Component
           <div className="App">
           <header className="App-header">
             <h1 className="App-title">Welcome to Readit</h1>
-          </header>
-          <Link to="/login">
-              <button className="login-butt"> Login </button>
-          </Link>
-          <Link to="/signup">
-            <button className="signup-butt"> Signup </button>
-          </Link>
-          <button className="signup-butt" onClick={() => {this.logout()}}> Sign Out </button>
+            <hr/>
+            </header>  
+          <div className="start-butt">
+            <Link to="/login">
+                <button className="signup-butt"> Login </button>
+            </Link>
+
+            <Link to="/signup">
+              <button className="signup-butt"> Signup </button>
+            </Link>
+
+            <Link>
+              <button className="signup-butt" onClick={() => {this.logout()}}> Sign Out </button>
+            </Link> 
+
+            <hr/>
+            <h4>Related Websites</h4>  
+          </div>   
         </div>
         )
     }

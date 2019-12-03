@@ -64,7 +64,7 @@ class CreateSub extends React.Component
         else
         {
             return(
-                <div>
+                <div className="create-sub-error">
                     <h1> You must be a moderator to create subReadits! </h1>
                 </div>
             )

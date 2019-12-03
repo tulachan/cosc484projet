@@ -87,7 +87,7 @@ class CreatePost extends React.Component
         else
         {
             return(
-                <div>
+                <div className="create-post-error">
                     <h1> You must be logged in to post! </h1>
                 </div>
             )

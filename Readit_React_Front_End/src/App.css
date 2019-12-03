@@ -1,51 +1,308 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
   height: 40vmin;
 }
 
+.App-title{
+  font-family: 'Indie Flower', cursive;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 30vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: whitesmoke;
+  display: flex;
+  text-transform: uppercase;
 }
 
-.App-link {
-  color: #09d3ac;
+.App-header h1{
+  display: block;
+  margin-top: 0px;
 }
 
-.login-butt{
-  margin-right: 10px;
-  background-color: #282c34; 
-  color: white;
+/*Nav page css*/
+
+.link-button{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .signup-butt{
-  margin-left: 10px;
-  background-color: #282c34; 
-  color: white;
+  background-color: #282c34;
+  color: whitesmoke;
+  transition: all .2s;
 }
 
-.create-butt{
-  background-color: #282c34; 
-  color: white;
+.signup-butt:hover{
+  transform: translateY(-3px);
 }
-.social-links {
+
+.signup-butt:active{
+  transform: translateY(-3px);
+}
+
+.signup-butt,.login-butt{
+  padding: 10px 15px;
+  margin:auto;
+  margin: 30px 20px;
+  border-radius: 10%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  font-family: "Barlow";
+}
+
+.social-links{
   display: flex;
   justify-content: space-between;
-  width: 20%;
-  bottom: 100;
+  width: 15%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.start-butt hr{
+  border-top: 1px dotted #282c34;
+  width: 50%;
+  margin: auto;
+}
+
+.start-butt h4{
+  font-family: "Indie Flower";
+  font-size: 2em;
+}
+
+.start-butt, .signup-butt, .login-butt{
+  border:none;
+}
+
+.login-butt{
+  margin-top: 0px;
 }
 
 .social-links i {
   color: black;
-  font-size: 2.3em;
+  font-size: 3em;
   padding: 8px;
+  opacity: .8;
+  transition: all .2s;
 }
+
+.social-links i:hover{
+  transform: translateY(-3px);
+}
+
+.social-links i:active{
+  transform: translateY(-3px);
+}
+
+/*Nav page css*/
+
+
+/*Search page CSS*/
+.login-textbox h1, .login-textbox h2, .login-textbox label{
+  font-family: "Indie Flower";
+  text-align: center;
+}
+
+.input {
+  text-align: center;
+  font-size: 1em;
+}
+
+.input input{
+  height: 100%;
+  width: 35%;
+}
+
+.button-login{
+  margin-top: 2em;
+}
+
+.button-login button{
+  border-radius: 10%;
+  border: none;
+  padding: 1em 1.5em;
+  background-color: #282c34;
+  color: whitesmoke;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  transition: all .2s;
+}
+
+.button-login button:hover{
+  transform: translateY(-3px);
+}
+
+.button-login button:active{
+  transform: translateY(-3px);
+}
+
+/*Search page CSS*/
+
+/*Create post CSS*/
+.create-post-error h1,.create-sub-error h1{
+  font-family: 'Indie Flower', cursive;
+  text-align: center;
+}
+
+/*Create post CSS*/
+
+
+/*User Page CSS*/
+.comment-box{
+  text-align: center;
+}
+
+.comment-box h2{
+  font-family: 'Indie Flower', cursive;
+  
+}
+
+.comment-box h3{
+  font-family: 'Indie Flower', cursive;
+}
+
+.comment-form-fields{
+  margin: auto;
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  justify-content: space-between;
+}
+
+.comment-box button{
+  font-family: "Barlow";
+  margin-top: 3em;
+  border-radius: 10%;
+  border: none;
+  background-color: #282c34;
+  color: whitesmoke;
+  padding: 10px 15px;
+}
+
+.comment-form-actions{
+  text-align: center;
+  margin-top: 3em;
+}
+
+.comment-form-actions button{
+  padding: 1em 1.5em;
+  border-radius: 10%;
+  border: none;
+  color: whitesmoke;
+  background-color: #282c34;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  font-family: "Barlow";
+  transition: all .2s;
+}
+
+.comment-form-actions button:hover{
+  transform: translateY(-3px);
+}
+
+.comment-form-actions button:active{
+  transform: translateY(-3px);
+}
+
+.comment-footer{
+  margin: auto;
+}
+
+.comment-footer-delete{
+  font-family: "Barlow";
+}
+
+.comment-footer button{
+  padding: 10px 15px;
+  border-radius: 10%;
+  border: none;
+  margin-left: 10px;
+}
+/*User Page CSS*/
+
+/*Login Page CSS*/
+.login-form{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-form label{
+  font-size: 2em;
+}
+
+.login-form input{
+  width: 30%;
+  margin: auto;
+  margin-top: 1.5em;
+}
+
+.login-form h2{
+  margin-top: .1em;
+}
+
+.login-form a{
+  font-size: 2em;
+  text-decoration: none;
+  font-family: "Indie Flower";
+  margin-top:  20px;
+}
+
+.login-form button{
+  margin-top: .1em;
+  color: whitesmoke;
+  background-color: #282c34;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10%;
+  font-family: "Barlow";
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+
+.login-done, .login-failed{
+  text-align: center;
+}
+
+.login-failed h1, .login-done h1{
+  font-family: "Indie Flower";  
+}
+/*Login page CSS*/
+
+/*Successful Signup CSS*/
+
+.succ-form{
+ text-align: center;
+}
+
+.succ-form h3{
+  font-family: "Indie Flower";
+}
+
+.succ-form button{
+  padding: 10px 15px;
+  background-color: #282c34;
+  color: whitesmoke;
+  font-family: "Barlow";
+  border:none;
+  border-radius: 10%;
+}
+
+/*Successful Signup CSS*/

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './forgotpage.css';
 
 function validate(username, newpassword, vnewpassword, answer)
 {
@@ -102,41 +101,32 @@ class Forgotpage extends React.Component
                     
                     <div>
                     <form className="forgot-form">
-                    <h3 className="forgot-title"><i>Please Enter the Account Information </i></h3>
-                    <br/><br/>
-                    
-                    <label className='forgotText'> UserName </label>
-              
-                    <input type='text'  value={this.state.username} onChange={this.handleChangeUser} />
-                    <form className='forgot-form2'>
+                    <h3 className="forgot-title"><i>PLease Enter the Email Address </i></h3>
+                    <label>USerName </label>
+                    <form>
+                    <input type='text' value={this.state.username} onChange={this.handleChangeUser} />
                         <br/><br/>
-                        <label className="forgotPass"> Set Password:  </label>
-                    <input type='password' value={this.state.newpassword} onChange={this.handleChangeNewpassword} />
-                    <br/><br/>
-                    <label className="forgotPass"> Re-Enter Password:  </label>
-                    <input type='password' value={this.state.vnewpassword} onChange={this.handleChangeVNewpassword} onBlur={this.passwordsMatch}/>
-                    <br/><br/>
 
-                    <label className='security'> Security Question</label> 
-                    
-                    
-                    <select value={this.state.securityquestion} onChange= {this.handleChangeQuestion}>
+                    Questions <select value={this.state.securityquestion} onChange= {this.handleChangeQuestion}>
                     <option>Choose a Question</option>
                     <option value="What is your first pet name?">What is your first pet name?</option>
                     <option value="What is make of your first car?">What is make of your first car?</option>
                     <br></br>
                     </select>
-                    <br/><br/>
                     <br></br>
-                    <label className='Answer'>Answer: </label>
+                    <label>Answer </label>
                     <input type='text' value={this.state.email} onChange={this.handleChangeAnswer} />
                     <br/><br/>
-                   
+                    <label className="forgot"> Set Password:  </label>
+                    <input type='password' value={this.state.newpassword} onChange={this.handleChangeNewpassword} />
+                    <br/><br/>
+                    <label className="forgot"> Re-Enter Password:  </label>
+                    <input type='password' value={this.state.vnewpassword} onChange={this.handleChangeVNewpassword} onBlur={this.passwordsMatch}/>
+                    <br/><br/>
     
                         <Link to="/">
                         <button  disabled= {!this.passwordsMatch || isDisabled} onClick={() => {this.checkDatabase()}}> Submit </button>
                         </Link>
-                       
     
                     </form>
                     </form>

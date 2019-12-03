@@ -35,7 +35,7 @@ class Confirm extends React.Component
     if (this.state.loggedin)
     {
       return (
-          <div>
+          <div className="login-done">
               <h1> Login Successful! </h1>
               <Link to="/userPage">
                     
@@ -46,10 +46,10 @@ class Confirm extends React.Component
     else
     {
       return (
-          <div>
+          <div className="login-failed">
               <h1> Login Failed. . .</h1>
                 <Link to="/login">
-                    <button className="login-butt"> Try Login Again </button>
+                    <button className="signup-butt"> Try Login Again </button>
                 </Link>
           </div>
       )

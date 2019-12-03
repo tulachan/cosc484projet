@@ -154,7 +154,7 @@ class Signup extends React.Component
                     <input type='text' value={this.state.email} disabled= {!this.passwordsMatch} onChange={this.handleChangeEmail} />
                     <br/><br/>
                     <br/><br/>
-                    <label className="signup"> Choose a Security Question  </label>
+                    <label className="secu-ques"> Choose a Security Question  </label>
                     <br></br>
                     <br></br>
                     Questions <select value={this.state.securityquestion} onChange= {this.handleChangeQuestion}>

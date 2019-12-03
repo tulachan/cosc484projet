@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class Search extends React.Component
+class Search extends Component
 {
     constructor(props)
     {
@@ -22,13 +22,17 @@ class Search extends React.Component
             <div className="login-textbox">
                 <h1 className="login-title"> Search for subreadit</h1>
                 <form className="login-form">
-                    <h2 className="hello"> Looking for {this.state.subreadit_name}  </h2>
-                    <label className="username"> Search </label>
-                    <input name type='text' onChange={this.handleChangeQuery} />
-                    <br></br>
-                    <Link to={this.state.subreadit_name}>
-                        <button> Search </button>
-                    </Link>
+                    <h2 className="hello"> Looking for {this.state.subreadit_name}</h2>
+                    <div className="input">
+                        <label className="username"> Search </label>
+                        <input name type='text' onChange={this.handleChangeQuery} />
+                        <br></br>
+                      <div className="button-login"> 
+                        <Link to={this.state.subreadit_name}>
+                            <button> Search </button>
+                        </Link>
+                      </div>  
+                   </div> 
                 </form>
             </div>
         )

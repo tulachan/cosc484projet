@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './login.css';
 import { Link } from 'react-router-dom';
 
 // class handles the login page, login reroutes to a confirmation page that displays good login or failed login
