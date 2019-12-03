@@ -68,7 +68,8 @@ class Sub extends React.Component
               title={post.post_title}
               date={post.post_creationdate}
               subreadit={post.post_subreadit}
-              isLink = {post.post_islink} />
+              isLink = {post.post_islink}
+              id={post.post_id} />
           ); 
         });
       }
@@ -87,20 +88,63 @@ class Sub extends React.Component
 }
 
 class TopPosts extends React.Component {
-    render () {
-      return(
-        <div>
-          <p> {this.getType(this.props.isLink)}  Author: {this.props.author} 
-         _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
-         </p> 
-        </div>
-      );
-    }
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      count: this.props.likes,
+      updated: false,
+      post_id: this.props.id
+    };
+  }
+
+  handlelikeIncrement= () =>
+  {
+      if (!this.state.updated)
+      {
+          let newCount = this.state.count + 1;
+          this.setState({count: newCount});
+          this.setState({updated: true});
+          this.updateDatabase();
+      }
+      else{
+          alert("You can only like once per post");
+      }
+  }
+
+
+
+
+  render () {
+    return(
+      <div>
+        <p> {this.getType(this.props.islink)} <br></br> <br></br> 
+        Author: {this.props.author} <br></br>
+       Subreadit: {this.props.subreadit} <br></br>
+         Likes: {this.state.count} <button onClick={() => {this.handlelikeIncrement()}} > Like </button> <br></br>
+        Created: {this.props.date}
+       </p> 
+      </div>
+    );
+  }
 
     display(body)
     {
       alert(body);
     }
+
+    updateDatabase()
+    {
+        fetch('/api/upvotepost' , {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+            })
+            .then((result) => result.json())
+            .then((info) => { console.log(info); });
+  }
 
     getType(islink)
     {

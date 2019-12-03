@@ -55,7 +55,8 @@ class FrontPage extends React.Component
               title={post.post_title}
               date={post.post_creationdate}
               subreadit={post.post_subreadit}
-              islink={post.post_islink} />
+              islink={post.post_islink}
+              id={post.post_id} />
 
                     
              </h4>
@@ -80,16 +81,41 @@ class FrontPage extends React.Component
 }
 
 class TopPosts extends React.Component {
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      count: this.props.likes,
+      updated: false,
+      post_id: this.props.id
+    };
+  }
+
+  handlelikeIncrement= () =>
+  {
+      if (!this.state.updated)
+      {
+          let newCount = this.state.count + 1;
+          this.setState({count: newCount});
+          this.setState({updated: true});
+          this.updateDatabase();
+      }
+      else{
+          alert("You can only like once per post");
+      }
+  }
+
+
   render () {
     return(
-      <div className='frontpage2'>
-     <p> {this.getType(this.props.islink)} <br></br> 
-      Author: {this.props.author} <br></br>
-     _Subreadit: {this.props.subreadit} <br></br>
-       Likes: {this.props.likes}<br></br>
-      Created: {this.props.date}
-         </p> 
-        </div>
+<div className='frontpage2'>
+<p> {this.getType(this.props.islink)} <br></br> <br></br> 
+Author: {this.props.author} <br></br>
+Subreadit: {this.props.subreadit} <br></br>
+ Likes: {this.state.count} <button className='display' onClick={() => {this.handlelikeIncrement()}} > Like </button> <br></br>
+Created: {this.props.date}
+</p> 
+</div>
     );
   }
 
@@ -97,6 +123,19 @@ class TopPosts extends React.Component {
   {
     alert(body);
   }
+
+  updateDatabase()
+  {
+      fetch('/api/upvotepost' , {
+          method: "POST",
+          headers: {
+              'Content-type': 'application/json'
+          },
+          body: JSON.stringify(this.state)
+          })
+          .then((result) => result.json())
+          .then((info) => { console.log(info); });
+}
 
   getType(islink)
     {
