@@ -33,6 +33,7 @@
   border-radius: 10px;
   background-color: white;
   border: 0;
+  text-align: center;
   transition: all .2s;
 }
 

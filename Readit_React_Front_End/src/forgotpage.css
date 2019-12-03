@@ -1,0 +1,92 @@
+
+  *{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+  }
+  .forgot-form {
+    height: 100vh;
+    background-image: linear-gradient(to right top, rgba(213, 203, 111, 0.801), rgba(40, 89, 180, 0.801)), url(./images/background1.jpg);
+    background-size: cover;
+    background-position: top;
+    text-align: center;
+      }
+
+      .forgot-form2 {
+        text-align: center;
+          }
+  
+  .forgot-title{
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 200;
+    text-align: center;
+    padding-top: 100px;
+  }
+  
+  .forgotPass{
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 200;
+    text-align: right;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+   
+  .security{
+ padding-bottom: 20px;
+ color: white;
+ font-weight: 200;
+ text-transform: uppercase;
+ letter-spacing: 2px;
+ padding-top: 30px;
+ padding-bottom: 30px;
+  }
+
+   
+
+   
+  .forgotText{
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 200;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  
+  .Answer{
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 200;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  
+  button{
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 40px;
+    margin-top: 30px;
+    border-radius: 10px;
+    background-color: white;
+    border:1;
+    text-align: center;
+    transition: all .5s;
+  }
+  
+  button:hover{
+    color: rgba(136, 6, 129, 0.801);
+    transform: translateY(-5px);
+  }
+  
+  button:active{
+    transform: translateY(-5px);
+  }

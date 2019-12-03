@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { is } from '@babel/types';
 
+=======
+import './frontpage.css';
+>>>>>>> e9d7df8eae4306aef406bc944b938301549891ee
 // This page dynamically loads the top posts from the database
 
 // This is an example of the array returned by the database:
@@ -44,6 +48,10 @@ class FrontPage extends React.Component
       _getPages() {    
         return this.state.array.map((post) => { 
           return (
+
+            <div>
+            <h4 className='frontpage'>
+     
             <TopPosts 
               author={post.post_author} 
               body={post.post_body} 
@@ -51,8 +59,15 @@ class FrontPage extends React.Component
               title={post.post_title}
               date={post.post_creationdate}
               subreadit={post.post_subreadit}
+<<<<<<< HEAD
               islink={post.post_islink}
               id={post.post_id} />
+=======
+              islink={post.post_islink} />
+             
+             </h4>
+              </div>
+>>>>>>> e9d7df8eae4306aef406bc944b938301549891ee
           ); 
         });
       }
@@ -128,10 +143,19 @@ handlelikeIncrement= (event) =>
 
   render () {
     return(
+<<<<<<< HEAD
       <div>
           <p> {this.getType(this.props.islink)}  Author: {this.props.author} 
          _Sub: {this.props.subreadit} Likes: {this.props.likes} Created: {this.props.date}
 
+=======
+      <div className='frontpage2'>
+          <p> {this.getType(this.props.islink)} <br></br> <br></br> 
+          Author: {this.props.author} <br></br>
+         _Subreadit: {this.props.subreadit} <br></br>
+           Likes: {this.props.likes}<br></br>
+          Created: {this.props.date}
+>>>>>>> e9d7df8eae4306aef406bc944b938301549891ee
          </p> 
          Likes: {this.state.count}<br></br>
          <button onClick={this.handlelikeIncrement}>Like</button>
@@ -180,7 +204,7 @@ handlelikeIncrement= (event) =>
       }
       else
       {
-        return (<button onClick={() => {this.display(this.props.body)}}> {this.props.title} </button>);
+        return (<button className='display' onClick={() => {this.display(this.props.body)}}> {this.props.title} </button>);
       }
     }
 }

@@ -93,7 +93,7 @@ class CommentForm extends React.Component {
       <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
         <div className="comment-form-fields">
           <input placeholder="Name" required ref={(input) => this._author = input}></input><br />
-          <textarea placeholder="Comment" rows="4" required ref={(textarea) => this._body = textarea}></textarea>
+          <textarea placeholder="Comment" rows="6" cols='30' required ref={(textarea) => this._body = textarea}></textarea>
         </div>
         <div className="comment-form-actions">
           <button type="submit">Post Status </button>
