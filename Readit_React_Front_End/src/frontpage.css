@@ -1,0 +1,42 @@
+.frontpage {
+    height: 26vh;
+
+    background-image: linear-gradient(to right top, rgba(41, 40, 40, 0.801), rgba(3, 1, 3, 0.801));
+    background-size: cover;
+    background-position: top;
+
+      }
+
+      .frontpage2 {
+        height: 10vh;
+        background-image: linear-gradient(to right top, rgba(0, 0, 0, 0.801), rgba(44, 44, 44, 0.801));
+     color: white;
+        background-size: cover;
+        background-position: top;
+        text-align: left;
+
+        letter-spacing: 2px;
+        font-weight: 200;
+        text-align: left;
+        font: helvetica;
+        font-family: helvetica;
+        padding-top: -40px;
+
+          }
+          
+          
+    
+          .display{
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            margin-top: 30px;
+            border-radius: 10px;
+            background-color: rgb(167, 165, 165);
+            border:1;
+            text-align: center;
+            transition: all .2s;
+            padding-left: 20px;
+            padding-right:  20px;
+            font-family: c='Courier New', Courier, monospace;
+          }
