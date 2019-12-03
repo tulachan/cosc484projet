@@ -45,7 +45,7 @@ class FrontPage extends React.Component
           return (
 
             <div>
-            <h3 className='frontpage'>
+            <h4 className='frontpage'>
      
             <TopPosts 
               author={post.post_author} 
@@ -56,7 +56,7 @@ class FrontPage extends React.Component
               subreadit={post.post_subreadit}
               islink={post.post_islink} />
              
-             </h3>
+             </h4>
               </div>
           ); 
         });
@@ -81,7 +81,7 @@ class TopPosts extends React.Component {
   render () {
     return(
       <div className='frontpage2'>
-          <p> {this.getType(this.props.islink)}  
+          <p> {this.getType(this.props.islink)} <br></br> <br></br> 
           Author: {this.props.author} <br></br>
          _Subreadit: {this.props.subreadit} <br></br>
            Likes: {this.props.likes}<br></br>
@@ -104,7 +104,7 @@ class TopPosts extends React.Component {
       }
       else
       {
-        return (<button onClick={() => {this.display(this.props.body)}}> {this.props.title} </button>);
+        return (<button className='display' onClick={() => {this.display(this.props.body)}}> {this.props.title} </button>);
       }
     }
 }
